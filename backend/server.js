@@ -1,3 +1,4 @@
+console.log('🚀 Le bon server.js est exécuté !');
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
@@ -20,18 +21,18 @@ Specialite.hasMany(Artisan, { foreignKey: 'id_specialite'});
 Artisan.belongsTo(Specialite, { foreignKey: 'id_specialite'});
 
 //Routes
-app.use('/api/categorie', require('./routes/categories'));
-app.use('/api/specialites', require('./routes/Specialites'));
-app.use('/api/artisans', require('./routes/artisans'));
-app.use('/api/artisan', require('./routes/artisan'));
 
-// Ping
-app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
-
+app.use('/api/categories', require('./routes/categories'));
+app.use('/api/test', require('./routes/test'));
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Route test directe OK 🚀' });
+});
 // Test DB
 sequelize.authenticate()
   .then(() => console.log('DB connectée'))
   .catch((err) => console.error('DB KO:', err));
+
+app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
 
 // Lancement du serveur
 const PORT = process.env.PORT || 3001;
