@@ -20,3 +20,13 @@ export const getArtisansByCategorie = async (id) => {
     return [];
   }
 };
+export const getArtisanById = async (id) => {
+  try {
+    const response = await fetch(`${API_URL}/artisan/${id}`);
+    if (!response.ok) throw new Error("Erreur lors de la récupération de l’artisan");
+    return await response.json();
+  } catch (error) {
+    console.error("Erreur API :", error);
+    return null;
+  }
+};
