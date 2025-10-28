@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getCategories } from "../api/api";
+import { Link } from "react-router-dom";
 
 const Accueil = () => {
   const [categories, setCategories] = useState([]);
@@ -22,7 +23,12 @@ const Accueil = () => {
             key={cat.id_categorie}
             className="col-10 col-md-3 p-3 m-2 border rounded shadow-sm bg-light"
           >
-            <h5>{cat.nom_categorie}</h5>
+            <Link
+              to={`/categorie/${cat.id_categorie}`}
+              className="text-decoration-none text-dark"
+            >
+              <h5>{cat.nom_categorie}</h5>
+            </Link>
           </div>
         ))}
       </div>

@@ -1,16 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const Artisan = require('../models/Artisan');
+const Specialite = require('../models/Specialite'); // ✅ AJOUT ICI
 
-router.get('/', async (_req, res) => {
+// 🔹 Artisans par catégorie
+router.get('/categorie/:id', async (req, res) => {
   try {
+    const { id } = req.params;
     const artisans = await Artisan.findAll({
-      order: [['nom_artisan', 'ASC']]
+      include: {
+        model: Specialite,
+        where: { id_categorie: id },
+      },
     });
     res.json(artisans);
   } catch (error) {
-    console.error('Erreur /api/artisans :', error);
-    res.status(500).json({ error: 'Erreur serveur' });
+    console.error("Erreur SQL :", error);
+    res.status(500).json({ error: "Erreur lors de la récupération des artisans." });
   }
 });
 
