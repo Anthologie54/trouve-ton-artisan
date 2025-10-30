@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.accueil-page {
+  background-color: #ffffff;
+  color: #00497c;
+
+  h2, h3, h4, h5 {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .btn-primary {
+    background-color: #00497c;
+    border-color: #00497c;
+  }
+
+  .btn-outline-primary {
+    color: #00497c;
+    border-color: #00497c;
+  }
+
+  .hero {
+    background: linear-gradient(120deg, #007bff 0%, #00aaff 100%);
+    color: white;
+  }
+}

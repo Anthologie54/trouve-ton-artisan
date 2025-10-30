@@ -1,9 +1,47 @@
+// Palette de couleurs globale
+$color-primary: #0074c7;   // couleur principale (textes, liens)
+$color-title: #00497c;     // couleur des titres
+$color-bg-light: #f1f8fc;  // couleur d’arrière-plan clair
+$color-dark: #384050;      // texte foncé
+
+@font-face {
+  font-family: 'Graphik';
+  src: url('./fonts/Graphik-Regular-Trial.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Graphik';
+  src: url('./fonts/Graphik-Medium-Trial.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Graphik';
+  src: url('./fonts/Graphik-Bold-Trial.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
 body {
-  font-family: 'Graphik', sans-serif;
-  background-color: #f8f9fa;
-  color: #222;
+  font-family: 'Graphik', 'Poppins', sans-serif;
+  color: $color-primary;
   margin: 0;
   padding: 0;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: $color-title;
 }
 
 a {
@@ -15,4 +53,11 @@ a {
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
+}
+
+// === Positionnement des titres ===
+.title-left {
+  text-align: left;
+  margin-left: 5%;
+  padding-bottom: 3%;
 }

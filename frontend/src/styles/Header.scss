@@ -1,0 +1,95 @@
+/* === Couleur de fond === */
+.custom-navbar {
+  height: 130px;
+  display: flex;
+  align-items: flex-end;
+  background-color: #f1f8fc;
+  padding: 1rem 0;
+  box-shadow: 0 4px 10px #38405044;
+  
+}
+
+.custom-navbar .container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+
+/* ✅ Logo centré verticalement */
+.logo-wrapper {
+  position: absolute;
+  left: 10%;
+  top: 5px;
+
+}
+
+/* Logo normal */
+.logo-img {
+  height: 138px;
+  width: auto;
+}
+/* === Liens du menu === */
+.navbar-nav .nav-link {
+  color: #000;
+  font-weight: 500;
+  margin: 0 12px;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #000;
+}
+
+/* === Barre noire au survol === */
+.navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: #000;
+  transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+
+/* === Barre de recherche === */
+.search-bar {
+  position: relative;
+  background-color: #ffff;
+  
+}
+
+.search-bar input {
+  border: none;
+  border-bottom: 2px solid #0074c7;
+  border-right: 2px solid #0074c7;
+  border-radius: 0;
+  padding-right: 30px;
+  outline: none;
+  background-color: transparent;
+}
+
+.search-bar button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border: none;
+  background: none;
+  color: #0074c7;
+}
+
+/* === Responsive === */
+@media (max-width: 992px) {
+  .search-bar {
+    margin-top: 1rem;
+  }
+}
