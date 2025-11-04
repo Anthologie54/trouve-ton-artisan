@@ -19,15 +19,18 @@ router.get('/categorie/:id', async (req, res) => {
     res.status(500).json({ error: "Erreur lors de la récupération des artisans." });
   }
 });
+// Récupère les 3 artisans avec la meilleure note
 router.get("/top", async (req, res) => {
   try {
-    const artisans = await Artisan.findAll({
-      order: [["note", "DESC"]],
-      limit: 3
+    const topArtisans = await Artisan.findAll({
+      where: { top: true },
+      limit: 3,
     });
-    res.json(artisans);
-  } catch (error) {
-    res.status(500).json({ message: "Erreur serveur", error });
+    res.json(topArtisans);
+  } catch (err) {
+    console.error("Erreur lors du chargement des artisans du mois :", err);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 });
+
 module.exports = router;
