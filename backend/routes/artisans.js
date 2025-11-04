@@ -19,5 +19,15 @@ router.get('/categorie/:id', async (req, res) => {
     res.status(500).json({ error: "Erreur lors de la récupération des artisans." });
   }
 });
-
+router.get("/top", async (req, res) => {
+  try {
+    const artisans = await Artisan.findAll({
+      order: [["note", "DESC"]],
+      limit: 3
+    });
+    res.json(artisans);
+  } catch (error) {
+    res.status(500).json({ message: "Erreur serveur", error });
+  }
+});
 module.exports = router;
