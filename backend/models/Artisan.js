@@ -44,6 +44,7 @@ const Artisan = sequelize.define('Artisan', {
     type: DataTypes.STRING(255),
     allowNull: true
   },
+
   // COLONNE pour gérer les artisans du mois
   top: {
     type: DataTypes.BOOLEAN,
@@ -54,5 +55,8 @@ const Artisan = sequelize.define('Artisan', {
   tableName: 'artisan',
   timestamps: false
 });
+
+//  Association : un artisan appartient à une spécialité
+Artisan.belongsTo(Specialite, { foreignKey: 'id_specialite', as: 'specialite' });
 
 module.exports = Artisan;

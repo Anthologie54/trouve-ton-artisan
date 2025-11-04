@@ -19,11 +19,16 @@ router.get('/categorie/:id', async (req, res) => {
     res.status(500).json({ error: "Erreur lors de la récupération des artisans." });
   }
 });
-// Récupère les 3 artisans avec la meilleure note
+// Récupère les 3 artisans du mois
 router.get("/top", async (req, res) => {
   try {
     const topArtisans = await Artisan.findAll({
       where: { top: true },
+      include: {
+        model: Specialite,
+        as: "specialite",
+        attributes: ["nom_specialite"], // récupère juste le nom du métier
+      },
       limit: 3,
     });
     res.json(topArtisans);
