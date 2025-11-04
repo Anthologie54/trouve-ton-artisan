@@ -1,0 +1,49 @@
+import React from "react";
+import "../styles/Footer.scss";
+
+const Footer = () => {
+  return (
+    <footer className="footer mt-5">
+      {/* === Section principale === */}
+      <div className="footer-top py-4">
+        <div className="container d-flex flex-wrap align-items-center">
+
+          {/* Logo */}
+          <div className="footer-logo text-center mb-3 mb-md-0">
+            <div className="logo-circle">
+              <img src="/images/logo.png" alt="Logo" className="footer-logo-img" />
+            </div>
+          </div>
+
+          {/* Informations */}
+          <div className="footer-info text-white">
+            <div className="col-md-6 mb-3 mb-md-0">
+              <h5 className="fw-bold">Lyon</h5>
+              <p className="mb-0">101 cours Charlemagne<br />CS 20033<br />69269 LYON CEDEX 02<br />France</p>
+            </div>
+            <div className="col-md-6">
+              <p className="mb-1">Ouvert du lundi au vendredi de 8h15 à 17h</p>
+              <p className="mb-0">
+                <i className="bi bi-telephone"></i> +33 (0)4 26 73 40 00
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* === Bande inférieure === */}
+      <div className="footer-bottom py-2 text-center">
+        <div className="container d-flex flex-wrap justify-content-center">
+          <a href="#" className="footer-link">Mentions légales</a>
+          <a href="#" className="footer-link">Données personnelles</a>
+          <a href="#" className="footer-link">Accessibilité</a>
+          <a href="#" className="footer-link">Politique des cookies</a>
+          <a href="#" className="footer-link">Gestion des cookies</a>
+          <a href="#" className="footer-link">Contact</a>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

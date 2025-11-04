@@ -13,7 +13,7 @@ const Artisan = sequelize.define('Artisan', {
     allowNull: false
   },
   note: {
-    type: DataTypes.DECIMAL(2,1),
+    type: DataTypes.DECIMAL(2, 1),
     allowNull: false
   },
   localisation: {
@@ -39,10 +39,24 @@ const Artisan = sequelize.define('Artisan', {
       model: Specialite,
       key: 'id_specialite'
     }
+  },
+  image: {
+    type: DataTypes.STRING(255),
+    allowNull: true
+  },
+
+  // COLONNE pour gérer les artisans du mois
+  top: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
   }
+
 }, {
   tableName: 'artisan',
   timestamps: false
 });
+
+//  Association : un artisan appartient à une spécialité
+Artisan.belongsTo(Specialite, { foreignKey: 'id_specialite', as: 'specialite' });
 
 module.exports = Artisan;

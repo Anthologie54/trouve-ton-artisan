@@ -1,0 +1,96 @@
+.container{
+  max-width: 1650px !important;
+}
+/* === Section Étapes === */
+.how-to {
+  background-color: #fff;
+}
+
+.decor-line {
+  width: 30px;
+  height: 3px;
+  background-color: #0074c7;
+  margin-left: 30px;
+}
+
+.step-card {
+  border: 1.5px solid #0074c7 !important;
+  border-radius: 0 !important;
+  background-color: #fff;
+  text-align: center;
+  max-width: 270px;
+  width: 95%;
+  padding: 10px;
+}
+
+
+.step-card .card-body {
+  min-height: 200px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.step-card .card-title {
+  color: #00497c;
+}
+
+.card-text {
+  color: #0074c7;
+}
+
+.btn-primary {
+  background-color: #0074c7 !important;
+}
+
+.arrow-down {
+  font-size: 1.7rem ;
+  padding-bottom: 10px ;
+  text-shadow: 0 0 1px #0074c7, 0 0 1px #0074c7;
+}
+.arrow-between {
+  position: absolute;
+  top: 50%;
+  right: -16px;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  color: #0074c7;
+  padding: 5px;
+  text-shadow: 0 0 1px #0074c7, 0 0 1px #0074c7;
+}
+
+.card-text {
+  padding: 10px;
+}
+.card-4 {
+  padding-bottom: 40px;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #00497c !important;
+  border-color: #00497c !important;
+  color: #fff !important;
+}
+@media (max-width: 992px) {
+  .col-lg-3 {
+    display: flex;
+    justify-content: center;
+  }
+
+  .step-card {
+    margin: 0 auto 1.5rem;
+    width: 90%;
+    max-width: 320px;
+  }
+
+  .decor-line {
+    width: 30px;
+    height: 3px;
+    background-color: #0074c7;
+    margin-left: 140px;
+  }
+
+  .arrow-between {
+      display: none;
+  }
+  }

@@ -1,0 +1,155 @@
+.artisans-mois {
+  .decor-line {
+    background-color: #82b864;
+  }
+
+  /* --------- TITRE SECTION --------- */
+  h2 {
+    color: #00497c !important;
+    font-weight: 700;
+    margin: 20px;
+    padding-left: 30px;
+  }
+
+  /* --------- CORRECTION BOOTSTRAP POUR DÉBORDEMENT --------- */
+  #carouselArtisans,
+  #carouselArtisans .carousel-inner,
+  #carouselArtisans .carousel-item {
+    overflow: visible !important;
+  }
+
+  /* --------- ITEMS DU CARROUSEL --------- */
+  .carousel-item {
+    min-height: 360px;
+  }
+
+  /* --------- CARD PRINCIPALE --------- */
+  .artisan-card {
+    background-color: #f1f8fc;
+    border-radius: 14px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem 2rem;
+    position: relative;
+    overflow: visible !important;
+    max-width: 750px;
+    margin: 40px auto;
+  }
+
+  /* --------- COLONNE IMAGE --------- */
+  .image-col {
+    position: relative;
+    overflow: visible;
+    z-index: 3;
+  }
+
+  /* --------- IMAGE ARTISAN --------- */
+  .artisan-img {
+    position: relative;
+    border-radius: 12px;
+    margin-top: -50px;
+    margin-left: -190px;
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    object-fit: cover;
+    box-shadow: 6px 6px 15px rgba(0, 116, 199, 1);
+    z-index: 5;
+  }
+
+
+  /* --------- COLONNE TEXTE --------- */
+  .text-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center; // centre horizontalement le contenu
+    justify-content: center; // centre verticalement le tout
+    text-align: center;
+
+
+    h2 {
+      color: #0074c7 !important;
+      margin-bottom: 15px;
+      padding: 10px;
+      width: 100%;
+    }
+
+    h3 {
+      color: #0074c7;
+      font-size: 40px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    h4 {
+      color: #0074c7;
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    h5 {
+      font-size: bold;
+      color: #0074c7;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      background-color: #0074c7;
+      border: none;
+      padding: auto;
+      width: 80%;
+      font-weight: 600;
+      font-size: large;
+      height: 50px;
+      padding: 0.5rem 1.5rem;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #00497c;
+      }
+    }
+  }
+
+  /* --------- ÉTOILES ET NOTE --------- */
+  .rating {
+    text-align: left;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    margin-left: -20px;
+
+    .stars {
+      color: #ffb400;
+      margin-right: 0.4rem;
+      font-size: 1.2rem;
+    }
+
+    .note {
+      color: #00497c;
+      font-weight: 600;
+    }
+  }
+
+  /* --------- ADAPTATION MOBILE --------- */
+  @media (max-width: 768px) {
+    .artisan-img {
+      margin-left: 0;
+      margin-top: 0;
+      width: 100%;
+      box-shadow: 6px 6px 0px 0px #0074c7;
+    }
+
+    .artisan-card {
+      max-width: 90%;
+      padding: 1rem;
+    }
+
+    .text-col {
+      padding: 10px;
+    }
+
+    .rating {
+      margin-left: 0;
+      text-align: center;
+    }
+
+  }
+}
