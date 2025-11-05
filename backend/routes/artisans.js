@@ -1,39 +1,98 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Artisan = require('../models/Artisan');
-const Specialite = require('../models/Specialite'); // ✅ AJOUT ICI
+const Artisan = require("../models/Artisan");
+const Specialite = require("../models/Specialite");
+const Categorie = require("../models/Categorie");
 
-// 🔹 Artisans par catégorie
-router.get('/categorie/:id', async (req, res) => {
+
+// 🟦 Route 1 : Récupérer tous les artisans (avec leur spécialité + catégorie)
+router.get("/", async (req, res) => {
   try {
-    const { id } = req.params;
     const artisans = await Artisan.findAll({
       include: {
         model: Specialite,
-        where: { id_categorie: id },
+        include: {
+          model: Categorie,
+        },
       },
     });
     res.json(artisans);
   } catch (error) {
-    console.error("Erreur SQL :", error);
-    res.status(500).json({ error: "Erreur lors de la récupération des artisans." });
+    console.error("Erreur lors du chargement des artisans :", error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 });
-// Récupère les 3 artisans du mois
+
+// 🟩 Route 2 : Récupérer les 3 artisans du mois (sélection manuelle)
 router.get("/top", async (req, res) => {
   try {
-    const topArtisans = await Artisan.findAll({
-      where: { top: true },
+    // 🔹 Liste des artisans à afficher dans le carrousel (manuelle)
+    const topNames = ["Au pain chaud", "Chocolaterie Labbé", "Orville Salmons"];
+
+    const artisans = await Artisan.findAll({
+      where: {
+        nom_artisan: topNames
+      },
       include: {
         model: Specialite,
-        as: "specialite",
-        attributes: ["nom_specialite"], // récupère juste le nom du métier
+        include: {
+          model: Categorie,
+        },
       },
-      limit: 3,
     });
-    res.json(topArtisans);
-  } catch (err) {
-    console.error("Erreur lors du chargement des artisans du mois :", err);
+
+    res.json(artisans);
+  } catch (error) {
+    console.error("Erreur lors du chargement des artisans du mois :", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+
+// 🟨 Route 3 : Recherche d’artisans (barre de recherche)
+router.get("/search/:query", async (req, res) => {
+  try {
+    const query = req.params.query.toLowerCase();
+    const artisans = await Artisan.findAll({
+      where: {},
+      include: {
+        model: Specialite,
+        include: {
+          model: Categorie,
+        },
+      },
+    });
+
+    const results = artisans.filter((a) =>
+      a.nom_artisan.toLowerCase().includes(query)
+    );
+
+    res.json(results);
+  } catch (error) {
+    console.error("Erreur lors de la recherche :", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+// 🟧 Route 4 : Récupérer un artisan spécifique (fiche)
+router.get("/:id", async (req, res) => {
+  try {
+    const artisan = await Artisan.findByPk(req.params.id, {
+      include: {
+        model: Specialite,
+        include: {
+          model: Categorie,
+        },
+      },
+    });
+
+    if (!artisan) {
+      return res.status(404).json({ message: "Artisan non trouvé" });
+    }
+
+    res.json(artisan);
+  } catch (error) {
+    console.error("Erreur lors de la récupération de l'artisan :", error);
     res.status(500).json({ message: "Erreur serveur" });
   }
 });

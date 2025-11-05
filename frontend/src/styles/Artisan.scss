@@ -1,0 +1,189 @@
+.custome-Artisans{
+  justify-items: center;
+}
+.line-artisan{
+  margin-right: 450px !important;
+  background-color: #00487c !important;
+}
+
+/* ==== Page Artisans ==== */
+.artisan-page {
+  background-color: #ffffff;
+
+  .btn {
+    width: 70%;
+    height: 40px;
+    margin-top: 20px;
+  }
+
+  /* === Ligne décorative verte au-dessus des titres === */
+  .decor-line {
+    width: 35px;
+    height: 6px;
+    background-color: #82b864;
+    margin-right: 250px;
+    border-radius: 4px;
+  }
+
+  /* ===== SECTION RECHERCHE ===== */
+  .search-section {
+    background-color: #f1f8fc;
+    padding: 2rem 0;
+
+    h2 {
+      color: #00497c;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-controls {
+      max-width: 600px;
+      margin: 0 auto;
+
+      select,
+      input {
+        border: 2px solid #0074c7;
+        border-radius: 30px;
+        padding: 0.6rem 1rem;
+      }
+
+      .ou {
+        font-weight: 600;
+        color: #00497c;
+        margin: 10px 0;
+      }
+
+      .input-group-text {
+        background-color: #fff;
+        border: 2px solid #0074c7;
+        border-right: none;
+        border-radius: 30px 0 0 30px;
+        color: #0074c7;
+      }
+
+      .search-bar input {
+        border-left: none;
+        border-radius: 0 30px 30px 0;
+      }
+    }
+  }
+
+  /* ===== SECTION LISTE DES ARTISANS ===== */
+  .artisan-list {
+    margin-top: 60px;
+
+    /* Titre principal "Les Artisans" */
+    h2 {
+      color: #00497c;
+      font-weight: 700;
+      margin: 0 0 30px 25px;
+    }
+
+    /* === Titre de chaque métier === */
+    .categorie-title {
+      background-color: #00487c;
+      color: white;
+      font-size: 1.3rem;
+      width: 100%;
+      margin: 40px auto 40px auto;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    /* === Carte artisan === */
+    .artisan-card {
+      background-color: #f1f8fc;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      padding: 1.5rem 2rem;
+      max-width: 750px;
+      margin: 40px auto;
+      position: relative;
+      overflow: visible;
+
+      .row {
+        align-items: center;
+        justify-content: center;
+      }
+
+      .artisan-img {
+        border-radius: 12px;
+        margin-top: -50px;
+        margin-left: -190px;
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        object-fit: cover;
+        box-shadow: 6px 6px 15px rgba(0, 116, 199, 1);
+      }
+
+      h3 {
+        color: #0074c7;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+
+      h4,
+      h5 {
+        color: #00497c;
+        margin-bottom: 10px;
+      }
+
+      .btn {
+        width: 70%;
+        height: 40px;
+        margin-top: 20px;
+        border-radius: 10px !important;
+      }
+
+
+    }
+
+    .rating {
+      text-align: left;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+
+      .stars {
+        color: #00487c !important;
+        margin-right: 0.4rem;
+        font-size: 1.2rem;
+      }
+
+      .note {
+        color: #00497c;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .artisan-list {
+    .categorie-title {
+      margin-top: 30px;
+    }
+
+    .artisan-card {
+      max-width: 95%;
+      margin: 20px auto;
+      padding: 1rem;
+      text-align: center;
+
+      .artisan-img {
+        margin: 0 auto 20px auto;
+      }
+
+      .rating {
+        text-align: center;
+        margin-left: 0;
+      }
+    }
+  }
+
+  .decor-line {
+    margin: 0 auto 10px auto;
+  }
+}

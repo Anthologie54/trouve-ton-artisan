@@ -45,7 +45,7 @@
   bottom: -4px;
   width: 0;
   height: 2px;
-  background-color: #0074c7;
+  background-color: #000;
   transition: width 0.3s ease;
 }
 
@@ -77,6 +77,32 @@
   border: none;
   background: none;
   color: #0074c7;
+}
+.search-results {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: white;
+  border: 1px solid #0074c7;
+  border-radius: 8px;
+  width: 250px;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 10;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding: 10px;
+    cursor: pointer;
+    color: #00497c;
+    transition: background 0.2s;
+
+    &:hover {
+      background-color: #eaf5ff;
+    }
+  }
 }
 /* === BOUTON BURGER PERSONNALISÉ === */
 .navbar-toggler {
@@ -127,48 +153,127 @@
 .navbar-toggler-icon::after {
   top: 9px;
 }
-/* === RESPONSIVE MOBILE === */
-@media (max-width: 992px) {
-  .custom-navbar {
-    height: auto;
-    padding: 0.5rem 1rem;
-  }
 
-  .header-row {
-    justify-content: space-between;
+/* === PETIT MENU MOBILE FLOTTANT (animation douce) === */
+.mobile-menu-box {
+  position: absolute;
+  top: 100%;
+  left: 10px;
+  background-color: #f1f8fc;
+  border: 2px solid #0074c7;
+  border-radius: 12px;
+  width: 230px;
+  padding: 0.8rem 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  animation: fadeSlideDown 0.25s ease forwards;
+}
+
+/* Animation d’apparition */
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Liens du menu mobile */
+.mobile-menu-box li {
+  margin: 0.4rem 0;
+}
+
+.mobile-menu-box a {
+  color: #00497c;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #0074c7;
+  }
+}
+/* === RESPONSIVE MOBILE === */
+@media (min-width: 992px) {
+  .custom-navbar .header-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
   }
 
-  /* Burger */
+  .logo-wrapper {
+    justify-self: start;
+  }
+
+  .navbar-collapse {
+    justify-self: center;
+  }
+
+  .search-bar {
+    justify-self: end;
+    width: 250px;
+  }
+}
+@media (max-width: 992px) {
+  .custom-navbar {
+    height: auto;
+  }
+
+  /* Structure de la ligne du header */
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+  }
+
+  /*  Burger */
   .navbar-toggler {
     order: 1;
     border: none;
     background: transparent;
-  
+    flex-shrink: 0;
   }
 
-  /* Logo centré */
+  /*  Logo centré */
   .logo-wrapper {
     order: 2;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: 0;
+    transform: none;
   }
 
   .logo-img {
-    margin-right: 350px;
-    height: 180px;
+    height: 150px;
+    width: auto;
+    margin: 0;
   }
 
-  /* Barre de recherche à droite */
+  /*  Barre de recherche */
   .right-slot {
     order: 3;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     margin-left: auto;
   }
 
   .search-bar {
-    width: 38vw;
+    width: 35vw;
     min-width: 150px;
+
+    input {
+      width: 100%;
+    }
   }
 
   /* === PETIT MENU MOBILE FLOTTANT === */
@@ -176,8 +281,6 @@
     position: absolute;
     top: 100%;
     left: 0;
-    transform: none;
-    margin-left: 10px;
     background-color: #f1f8fc;
     border: 2px solid #0074c7;
     border-radius: 12px;
@@ -186,7 +289,7 @@
     padding: 0.8rem 0.5rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     z-index: 999;
-    animation: fadeSlideDown 0.25s ease forwards;
+    animation: fadeSlideDownLeft 0.25s ease forwards;
   }
 
   .mobile-menu-box li {
@@ -204,16 +307,65 @@
     }
   }
 
-  /* Animation d'apparition */
+  /* Animation */
   @keyframes fadeSlideDownLeft {
     from {
       opacity: 0;
       transform: translateY(-10px) translateX(-10px);
     }
-
     to {
       opacity: 1;
       transform: translateY(0) translateX(0);
     }
+  }
+}
+
+/* === PETIT MENU MOBILE LOCALISÉ SOUS LE BURGER === */
+.mobile-overlay-mini {
+  position: absolute;
+  top: 100%;
+  left: 10px;
+  background-color: #f1f8fc;
+  border: 2px solid #0074c7;
+  border-radius: 16px;
+  width: 230px;
+  padding: 1rem 0.8rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  animation: fadeSlideDownMini 0.25s ease forwards;
+}
+
+/* Animation d'apparition douce */
+@keyframes fadeSlideDownMini {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.overlay-logo {
+  width: 100px;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+.overlay-link {
+  display: block;
+  background-color: #00487c;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 30px;
+  margin: 6px 0;
+  width: 100%;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background-color: #0074c7;
   }
 }
