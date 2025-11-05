@@ -1,27 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Accueil from './pages/Acceuil';
-import Categorie from './pages/Categorie';
-import Artisan from './pages/Artisan';
-import NotFound from './pages/NotFound';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Accueil from "./pages/Accueil";
+import Artisans from "./pages/Artisans";
+import FicheArtisan from "./pages/FicheArtisan";
+import NotFound from "./pages/NotFound";
 
-const App = () => {
+function App() {
   return (
     <Router>
       <Header />
-      <main className="container py-4">
-        <Routes>
-          <Route path="/" element={<Accueil />} />
-          <Route path="/categorie/:id" element={<Categorie />} />
-          <Route path="/artisan/:id" element={<Artisan />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
+
+      <Routes>
+        <Route path="/" element={<Accueil />} />
+        <Route path="/artisans" element={<Artisans />} /> {/* ✅ ici */}
+        <Route path="/artisan/:id" element={<FicheArtisan />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
       <Footer />
     </Router>
   );
-};
+}
 
 export default App;

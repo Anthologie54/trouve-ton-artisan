@@ -1,0 +1,87 @@
+.fiche-artisan {
+  background-color: #f1f8fc;
+  min-height: 100vh;
+
+  .artisan-info {
+    .card {
+      background-color: #f1f8fc;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .artisan-photo img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border: 6px solid #fff;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .website-link {
+      color: #0074c7;
+      font-weight: 600;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .about {
+      margin-top: 20px;
+      background: #ffffff;
+      border: 2px solid #0074c7;
+      border-radius: 10px;
+      padding: 15px;
+      color: #00497c;
+    }
+  }
+
+  /* === FORMULAIRE DE CONTACT === */
+  .contact-section {
+    background-color: #0074c7;
+    color: white;
+
+    .decor-line {
+      width: 30px;
+      height: 5px;
+      background-color: #82b864;
+      margin: 0 auto 15px;
+    }
+
+    h3 {
+      color: white;
+      font-weight: 600;
+    }
+
+    .contact-form {
+      background-color: #f1f8fc;
+      color: #00497c;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    input,
+    textarea {
+      border: none;
+      border-radius: 8px;
+      background-color: white;
+      padding: 10px;
+      width: 100%;
+    }
+
+    button {
+      background-color: white;
+      border-radius: 10px;
+      padding: 10px 25px;
+      color: #0074c7;
+      font-weight: 600;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #00497c;
+        color: white;
+      }
+    }
+  }
+}
