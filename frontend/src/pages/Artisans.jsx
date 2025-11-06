@@ -24,8 +24,8 @@ const Artisan = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resArtisans = await axios.get("http://localhost:3001/api/artisans");
-        const resCategories = await axios.get("http://localhost:3001/api/categories");
+        const resArtisans = await axios.get("https://trouve-ton-artisan-9yrd.onrender.com/api/artisans");
+        const resCategories = await axios.get("https://trouve-ton-artisan-9yrd.onrender.com/api/categories");
 
         setArtisans(resArtisans.data);
         setCategories(resCategories.data);

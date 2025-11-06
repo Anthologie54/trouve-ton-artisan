@@ -19,8 +19,8 @@ const Trouvetonartisan = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resCat = await axios.get("http://localhost:3001/api/categories");
-        const resArt = await axios.get("http://localhost:3001/api/artisans");
+        const resCat = await axios.get("https://trouve-ton-artisan-9yrd.onrender.com/api/categories");
+        const resArt = await axios.get("https://trouve-ton-artisan-9yrd.onrender.com/api/artisans");
         setCategories(resCat.data);
         setArtisans(resArt.data);
       } catch (error) {

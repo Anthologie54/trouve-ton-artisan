@@ -24,7 +24,7 @@ const Header = () => {
   // Chargement des catégories depuis l'API au montage du composant
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/categories")
+      .get("https://trouve-ton-artisan-9yrd.onrender.com/api/categories")
       .then((res) => setCategories(res.data))
       .catch((err) => console.error("Erreur catégories :", err));
   }, []);
@@ -35,7 +35,7 @@ const Header = () => {
       if (search.length > 1) {
         try {
           const res = await axios.get(
-            `http://localhost:3001/api/artisans/search?q=${encodeURIComponent(
+            `http://https://trouve-ton-artisan-9yrd.onrender.com/api/artisans/search?q=${encodeURIComponent(
               search
             )}`
           );
