@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/Header.scss";
 
+
 const Header = () => {
   // Liste des catégories (Bâtiment, Services, etc.)
   const [categories, setCategories] = useState([]);
