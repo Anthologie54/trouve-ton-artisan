@@ -21,8 +21,21 @@ const app = express();
 
 // === Configuration des middlewares globaux ===
 app.use(express.json());
-app.use(cors({ origin: process.env.ALLOWED_ORIGIN || "*" }));
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://trouve-ton-artisan.vercel.app'
+];
 
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS non autorisé pour cet origine : ' + origin));
+    }
+  },
+  credentials: true,
+}));
 // ============================================================================
 // ASSOCIATIONS ENTRE LES MODÈLES
 // ============================================================================
