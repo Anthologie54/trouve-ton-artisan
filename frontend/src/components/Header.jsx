@@ -24,7 +24,7 @@ const Header = () => {
   // Chargement des catégories depuis l'API au montage du composant
   useEffect(() => {
     axios
-      .get("https://trouve-ton-artisan-9yrd.onrender.com/api/categories")
+      .get(`${process.env.REACT_APP_API_URL}/api/categories`)
       .then((res) => setCategories(res.data))
       .catch((err) => console.error("Erreur catégories :", err));
   }, []);
@@ -35,7 +35,7 @@ const Header = () => {
       if (search.length > 1) {
         try {
           const res = await axios.get(
-            `http://https://trouve-ton-artisan-9yrd.onrender.com/api/artisans/search?q=${encodeURIComponent(
+            `${process.env.REACT_APP_API_URL}/api/artisans/search?q=${encodeURIComponent(
               search
             )}`
           );
@@ -164,6 +164,7 @@ const Header = () => {
                   <li
                     key={art.id_artisan}
                     role="option"
+                    aria-selected='true'
                     tabIndex={0}
                     onClick={() => handleResultSelect(art.id_artisan)}
                     onKeyDown={(e) => {

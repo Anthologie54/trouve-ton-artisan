@@ -20,7 +20,7 @@ const FicheArtisan = () => {
   // === Chargement des données artisan ===
   useEffect(() => {
     axios
-      .get(`https://trouve-ton-artisan-9yrd.onrender.com/api/artisans/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/artisans/${id}`)
       .then((res) => setArtisan(res.data))
       .catch((err) => console.error("Erreur chargement artisan :", err));
   }, [id]);

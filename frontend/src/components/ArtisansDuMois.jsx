@@ -13,7 +13,7 @@ const ArtisansDuMois = () => {
   // Chargement des artisans du mois depuis l'API
   useEffect(() => {
     axios
-      .get("https://trouve-ton-artisan-9yrd.onrender.com/api/artisans/top")
+      .get(`${process.env.REACT_APP_API_URL}/api/artisans/top`)
       .then((res) => setArtisans(res.data))
       .catch((err) => console.error("Erreur chargement artisans :", err));
   }, []);

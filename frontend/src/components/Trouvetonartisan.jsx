@@ -19,8 +19,8 @@ const Trouvetonartisan = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resCat = await axios.get("https://trouve-ton-artisan-9yrd.onrender.com/api/categories");
-        const resArt = await axios.get("https://trouve-ton-artisan-9yrd.onrender.com/api/artisans");
+        const resCat = await axios.get(`${process.env.REACT_APP_API_URL}/api/categories`);
+        const resArt = await axios.get(`${process.env.REACT_APP_API_URL}/api/artisans`);
         setCategories(resCat.data);
         setArtisans(resArt.data);
       } catch (error) {
