@@ -58,8 +58,7 @@ const Artisan = () => {
   return (
     <section
       className="artisan-page"
-      aria-labelledby="section-recherche-artisan"
-      role="region"
+      aria-labelledby="section-recherche-artisan"    
     >
       {/* === TITRE PRINCIPAL === */}
       <h2 id="section-recherche-artisan" className="fw-bold text-center">
@@ -145,7 +144,7 @@ const Artisan = () => {
                   <div className="col-md-4 image-col text-center">
                     <img
                       src={art.image || "/images/artisan-placeholder.png"}
-                      alt={`Photo ou logo de ${art.nom_artisan}`}
+                      alt={` ${art.nom_artisan}`}
                       className="artisan-img"
                     />
 

@@ -35,7 +35,6 @@ const ArtisansDuMois = () => {
     <section
       className="artisans-mois py-5"
       aria-labelledby="section-artisans-mois"
-      role="region"
     >
       <div className="container">
         <h2 id="section-artisans-mois" className="fw-bold mb-4 text-start">

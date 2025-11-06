@@ -50,7 +50,7 @@ const FicheArtisan = () => {
           <div className="artisan-photo mb-3">
             <img
               src={artisan.image || "/images/artisan-placeholder.png"}
-              alt={`Photo de ${artisan.nom_artisan}`}
+              alt={`${artisan.nom_artisan}`}
               className="rounded-circle"
             />
           </div>

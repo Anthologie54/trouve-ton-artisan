@@ -33,8 +33,8 @@ const Trouvetonartisan = () => {
   // Filtrer les artisans selon la catégorie choisie
   const artisansFiltres = selectedCategorie
     ? artisans.filter(
-        (a) => a.Specialite?.Categorie?.nom_categorie === selectedCategorie
-      )
+      (a) => a.Specialite?.Categorie?.nom_categorie === selectedCategorie
+    )
     : [];
 
   // Redirige vers la fiche de l’artisan sélectionné
@@ -49,7 +49,6 @@ const Trouvetonartisan = () => {
     <section
       className="how-to py-5"
       aria-labelledby="section-trouve-artisan"
-      role="region"
     >
       <div className="container container-section-un text-center">
         {/* Titre principal de la section */}
