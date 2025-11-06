@@ -8,7 +8,6 @@ const Trouvetonartisan = () => {
         <section className="how-to py-5">
   <div className="container container-section-un text-center">
     <div className="section-title mb-4">
-      <div className="decor-line mb-2"></div>
       <h1 className="text-center text-lg-start ms-lg-5">
         Comment trouver mon artisan ?
       </h1>

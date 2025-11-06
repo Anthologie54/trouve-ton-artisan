@@ -1,9 +1,21 @@
-.custome-Artisans{
-  justify-items: center;
-}
-.line-artisan{
-  margin-right: 450px !important;
-  background-color: #00487c !important;
+h2 {
+  color: #00497c;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.8rem;
+  position: relative;
+  margin: 25px !important;
+
+  &::before {
+    content: "";
+    position: absolute;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 5px;
+    top: -5px;
+    background-color: #00487c;
+    border-radius: 3px;
+  }
 }
 
 /* ==== Page Artisans ==== */
@@ -16,26 +28,9 @@
     margin-top: 20px;
   }
 
-  /* === Ligne décorative verte au-dessus des titres === */
-  .decor-line {
-    width: 35px;
-    height: 6px;
-    background-color: #82b864;
-    margin-right: 250px;
-    border-radius: 4px;
-  }
-
-  /* ===== SECTION RECHERCHE ===== */
   .search-section {
     background-color: #f1f8fc;
     padding: 2rem 0;
-
-    h2 {
-      color: #00497c;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
 
     .search-controls {
       max-width: 600px;
@@ -69,24 +64,36 @@
     }
   }
 
-  /* ===== SECTION LISTE DES ARTISANS ===== */
+  /* ===== SECTION LISTE ===== */
   .artisan-list {
     margin-top: 60px;
 
-    /* Titre principal "Les Artisans" */
     h2 {
       color: #00497c;
       font-weight: 700;
-      margin: 0 0 30px 25px;
+      text-align: center;
+      font-size: 1.8rem;
+      position: relative;
+      margin: 25px !important;
+
+      &::before {
+        content: "";
+        position: absolute;
+        transform: translateX(-50%);
+        width: 35px;
+        height: 5px;
+        top: -5px;
+        background-color: #82b864;
+        border-radius: 3px;
+      }
     }
 
-    /* === Titre de chaque métier === */
     .categorie-title {
       background-color: #00487c;
       color: white;
       font-size: 1.3rem;
       width: 100%;
-      margin: 40px auto 40px auto;
+      margin: 40px auto;
       border-radius: 20px;
       font-weight: 600;
     }
@@ -99,7 +106,6 @@
       padding: 1.5rem 2rem;
       max-width: 750px;
       margin: 40px auto;
-      position: relative;
       overflow: visible;
 
       .row {
@@ -107,8 +113,8 @@
         justify-content: center;
       }
 
+      /*  Image restaurée */
       .artisan-img {
-        border-radius: 12px;
         margin-top: -50px;
         margin-left: -190px;
         width: 100%;
@@ -118,15 +124,11 @@
         box-shadow: 6px 6px 15px rgba(0, 116, 199, 1);
       }
 
-      h3 {
-        color: #0074c7;
-        font-weight: 700;
-        margin-bottom: 15px;
-      }
-
+      h3,
       h4,
       h5 {
-        color: #00497c;
+        color: #0074c7;
+        font-weight: 700;
         margin-bottom: 10px;
       }
 
@@ -137,23 +139,32 @@
         border-radius: 10px !important;
       }
 
+      /* Étoiles dynamiques sous l'image */
+      .rating {
+        font-size: 1.3rem;
+        color: #0074c7;
+        margin-top: 10px;
+        margin-left: -190px;
+        text-align: left;
 
-    }
+        i {
+          margin: 0 2px;
+          transition: transform 0.2s ease;
+        }
 
-    .rating {
-      text-align: left;
-      margin-top: 1rem;
-      font-size: 1.1rem;
+        i.text-primary {
+          color: #0074c7 !important;
+        }
 
-      .stars {
-        color: #00487c !important;
-        margin-right: 0.4rem;
-        font-size: 1.2rem;
-      }
+        i.text-secondary {
+          color: #d0d0d0 !important;
+        }
 
-      .note {
-        color: #00497c;
-        font-weight: 600;
+        .note-value {
+          font-size: 1rem;
+          color: #00497c;
+          font-weight: 600;
+        }
       }
     }
   }
@@ -174,6 +185,7 @@
 
       .artisan-img {
         margin: 0 auto 20px auto;
+        box-shadow: 0 4px 12px rgba(0, 116, 199, 0.5);
       }
 
       .rating {

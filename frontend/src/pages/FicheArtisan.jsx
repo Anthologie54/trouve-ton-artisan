@@ -29,32 +29,41 @@ const FicheArtisan = () => {
             />
           </div>
 
-          {/* ⭐ Note */}
+          {/* ⭐ Note dynamique */}
           <div className="note">
-            {"⭐".repeat(Math.round(artisan.note))}{" "}
-            <span className="text-muted">{artisan.note}/5</span>
+            {[1, 2, 3, 4, 5].map((num) => (
+              <i
+                key={num}
+                className={`bi bi-star${artisan.note >= num
+                  ? "-fill text-primary" // pleine si note supérieure ou égale
+                  : artisan.note >= num - 0.5
+                    ? "-half text-primary" // demi-étoile si note entre X-0.5 et X
+                    : " text-secondary" // grise sinon
+                  }`}
+              ></i>
+            ))}
+            <span className="note-value ms-2">{artisan.note} / 5</span>
           </div>
 
+
           {/* 🧾 Nom + lien */}
-          <h2 className="mt-3 fw-bold text-primary">{artisan.nom_artisan}</h2>
+          <h4 className="mt-3 fw-bold">{artisan.nom_artisan}</h4>
           {artisan.site_web && (
-            <a
-              href={artisan.site_web}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="website-link"
-            >
+            <a href={artisan.site_web} target="_blank" rel="noopener noreferrer" className="website-link">
               {artisan.site_web}
             </a>
           )}
 
-          {/* Métier + localisation */}
-          <div className="row mt-4">
-            <div className="col-6 fw-bold text-primary">Métier</div>
-            <div className="col-6 fw-bold text-primary">Localisation</div>
-            <div className="col-6">{artisan.Specialite?.nom_specialite}</div>
-            <div className="col-6">{artisan.localisation}</div>
+          {/* Métier + localisation (directement les valeurs) */}
+          <div className="row mt-4 artisan-meta">
+            <div className="col-6 text-end  fw-bold">
+              {artisan.Specialite?.nom_specialite || "Métier inconnu"}
+            </div>
+            <div className="col-6 text-start  fw-bold">
+              {artisan.localisation || "Localisation inconnue"}
+            </div>
           </div>
+
 
           {/* À propos */}
           <div className="about mt-4">
@@ -64,8 +73,8 @@ const FicheArtisan = () => {
       </section>
 
       {/* === FORMULAIRE DE CONTACT === */}
-      <section className="contact-section py-5">
-        <div className="decor-line mb-2"></div>
+      
+      <section className="contact-section py-5 mx-auto">
         <h3 className="text-center mb-4">Contacter mon artisan</h3>
         <div className="container contact-form p-4 rounded-4 shadow-lg">
           <form>
@@ -93,7 +102,7 @@ const FicheArtisan = () => {
               ></textarea>
             </div>
             <div className="text-center">
-              <button type="submit" className="btn btn-light text-primary fw-semibold">
+              <button type="submit" className="btn btn-light  fw-semibold">
                 Envoyer ma demande
               </button>
             </div>

@@ -1,86 +1,233 @@
 .fiche-artisan {
-  background-color: #f1f8fc;
+  background-color: #ffffff;
   min-height: 100vh;
 
+  /* === SECTION INFO ARTISAN === */
+
   .artisan-info {
-    .card {
-      background-color: #f1f8fc;
-      border-radius: 20px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding-right: 40px;
+
+    h4 {
+      font-size: 30;
     }
 
-    .artisan-photo img {
-      width: 160px;
-      height: 160px;
-      object-fit: cover;
-      border: 6px solid #fff;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    .card {
+      background-color: #f1f8fc;
+      border-radius: 0 18px 18px 0;
+      border: none;
+    }
+
+    .artisan-photo {
+      img {
+        width: 200px;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1rem;
+      }
+
+    }
+
+    .artisan-meta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 200px; // espace entre métier et ville
+      flex-wrap: nowrap;
+      margin-top: 1rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #00497c !important;
+      text-align: center;
+
+      div {
+        white-space: nowrap; // empêche le retour à la ligne
+      }
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 8px;
+        font-size: 1.1rem;
+      }
+    }
+
+    /* ⭐ Note sous la photo */
+    .note {
+      margin: 1rem 0;
+      font-size: 1.5rem;
+
+      i {
+        margin: 0 2px;
+        transition: transform 0.2s ease;
+      }
+
+      i.text-primary {
+        color: #0074c7 !important;
+      }
+
+      i.text-secondary {
+        color: #d0d0d0 !important;
+      }
+
+      &:hover i.text-primary {
+        transform: scale(1.1);
+      }
+
+      .note-value {
+        font-size: 1.1rem;
+        color: #00497c;
+        font-weight: 600;
+        margin-left: 6px;
+      }
+    }
+
+
+    /* 🧾 Nom + lien site */
+    h1 {
+      color: #00497c;
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 0.3rem;
     }
 
     .website-link {
       color: #0074c7;
       font-weight: 600;
+      font-size: 1.1rem;
       text-decoration: none;
+      display: inline-block;
+      margin-bottom: 2rem;
 
       &:hover {
         text-decoration: underline;
       }
     }
 
+    /* Métier et localisation */
+    .row {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+
+      .col-6 {
+        margin-bottom: 0.3rem;
+      }
+
+      .fw-bold {
+        color: #0074c7;
+        font-size: 1.05rem;
+      }
+    }
+
+    /* À propos */
     .about {
-      margin-top: 20px;
-      background: #ffffff;
+      margin: 2rem auto 0;
       border: 2px solid #0074c7;
-      border-radius: 10px;
-      padding: 15px;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
       color: #00497c;
+      font-size: 1rem;
+      max-width: 750px;
+      line-height: 1.6;
     }
   }
 
   /* === FORMULAIRE DE CONTACT === */
-  .contact-section {
-    background-color: #0074c7;
-    color: white;
+  h3 {
+    color: #00497c;
+    font-weight: 700;
+    text-align: center;
+    font-size: 1.8rem;
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 
-    .decor-line {
-      width: 30px;
+    /* ✅ Trait vert au-dessus du texte */
+    &::before {
+      content: "";
+      position: absolute;
+      top: -15px;
+      /* espace au-dessus */
+      transform: translateX(-50%);
+      width: 35px;
       height: 5px;
       background-color: #82b864;
-      margin: 0 auto 15px;
+      border-radius: 3px;
     }
+  }
 
-    h3 {
-      color: white;
-      font-weight: 600;
-    }
+  .contact-section {
+    color: #0074c7;
+    width: 63% !important;
+    border-radius: 0 18px 18px 0;
+
+
 
     .contact-form {
-      background-color: #f1f8fc;
-      color: #00497c;
-      max-width: 800px;
-      margin: auto;
+      background: none;
+      max-width: 900px;
+      padding-right: 1.5rem;
+      border-radius: 0 18px 18px 0 !important;
+      background-color: #0074c7;
     }
 
     input,
     textarea {
-      border: none;
-      border-radius: 8px;
-      background-color: white;
-      padding: 10px;
       width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      background-color: #f1f8fc;
+      color: #00497c;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+      &:focus {
+        outline: none;
+        border: 2px solid #82b864;
+        box-shadow: 0 0 10px rgba(130, 184, 100, 0.6);
+      }
+    }
+
+    textarea {
+      resize: none;
+      height: 180px;
     }
 
     button {
-      background-color: white;
-      border-radius: 10px;
-      padding: 10px 25px;
+      display: block;
+      margin: 1.5rem auto 0;
+      background-color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 0.7rem 1.8rem;
       color: #0074c7;
-      font-weight: 600;
+      font-weight: 700;
       transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 
       &:hover {
         background-color: #00497c;
-        color: white;
+        color: #fff;
+        transform: scale(1.05);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .contact-form {
+        padding: 1rem;
+      }
+
+      input,
+      textarea {
+        font-size: 0.95rem;
+      }
+
+      button {
+        font-size: 0.95rem;
+        padding: 0.6rem 1.4rem;
       }
     }
   }

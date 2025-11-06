@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/Artisan.scss";
@@ -9,7 +10,6 @@ const Artisan = () => {
   const [selectedCategorie, setSelectedCategorie] = useState("");
   const [search, setSearch] = useState("");
 
-  // 🟦 Chargement artisans + catégories
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,7 +25,6 @@ const Artisan = () => {
     fetchData();
   }, []);
 
-  // 🟩 Filtrage selon la catégorie et la recherche
   const filteredArtisans = artisans.filter((art) => {
     const matchCategorie = selectedCategorie
       ? art.Specialite?.Categorie?.nom_categorie === selectedCategorie
@@ -34,7 +33,6 @@ const Artisan = () => {
     return matchCategorie && matchNom;
   });
 
-  // 🟦 Regrouper par spécialité (nom du métier)
   const artisansParSpecialite = filteredArtisans.reduce((acc, art) => {
     const specialite = art.Specialite?.nom_specialite || "Autres";
     if (!acc[specialite]) acc[specialite] = [];
@@ -44,14 +42,10 @@ const Artisan = () => {
 
   return (
     <section className="artisan-page">
-      {/* === SECTION RECHERCHE === */}
+      <h2 className="fw-bold">Rechercher mon artisan</h2>
+
       <div className="search-section py-5">
         <div className="container text-center">
-          <div className="custome-Artisans">
-          <div className="decor-line mb-6 line-artisan"></div>
-          <h2 className="fw-bold">Rechercher mon artisan</h2>
-          </div>
-          {/* Sélection de catégorie */}
           <div className="search-controls my-4">
             <select
               className="form-select mb-3"
@@ -84,14 +78,11 @@ const Artisan = () => {
         </div>
       </div>
 
-      {/* === SECTION LISTE DES ARTISANS === */}
       <div className="artisan-list container">
         <div className="custome-Artisans">
-          <div className="decor-line mb-6"></div>
-          <h2 className="fw-bold custom-title-lesartisans">Les Artisans</h2>
+          <h2 className="fw-bold">Les Artisans</h2>
         </div>
 
-        {/* 🧱 Groupe par spécialité */}
         {Object.entries(artisansParSpecialite).map(([specialite, arts]) => (
           <div key={specialite} className="categorie-section my-4">
             <div className="categorie-title text-center text-white fw-bold py-2 px-4 rounded-pill">
@@ -101,13 +92,33 @@ const Artisan = () => {
             {arts.map((art) => (
               <div key={art.id_artisan} className="artisan-card my-4">
                 <div className="row align-items-center justify-content-center">
-                  {/* IMAGE */}
+                  
+                  {/* IMAGE + ÉTOILES */}
                   <div className="col-md-4 image-col text-center">
                     <img
                       src={art.image || "/images/artisan-placeholder.png"}
                       alt={art.nom_artisan}
                       className="artisan-img"
                     />
+
+                    {/*  Étoiles dynamiques */}
+                    <div className="rating text-center mt-3">
+                      {[1, 2, 3, 4, 5].map((num) => (
+                        <i
+                          key={num}
+                          className={`bi bi-star${
+                            art.note >= num
+                              ? "-fill text-primary"
+                              : art.note >= num - 0.5
+                              ? "-half text-primary"
+                              : " text-secondary"
+                          }`}
+                        ></i>
+                      ))}
+                      <span className="note-value ms-2 fw-semibold">
+                        {art.note} / 5
+                      </span>
+                    </div>
                   </div>
 
                   {/* TEXTE */}
@@ -117,16 +128,12 @@ const Artisan = () => {
                     <h5>{art.localisation}</h5>
 
                     <Link
-                      to={`/artisan/${art.id_artisan}`} className="btn btn-primary rounded-pill mt-">
+                      to={`/artisan/${art.id_artisan}`}
+                      className="btn btn-primary rounded-pill mt-2"
+                    >
                       Voir mon artisan
                     </Link>
                   </div>
-                </div>
-
-                {/* NOTE */}
-                <div className="rating">
-                  <span className="stars">⭐⭐⭐⭐⭐</span>
-                  <span className="note">{art.note} / 5</span>
                 </div>
               </div>
             ))}
