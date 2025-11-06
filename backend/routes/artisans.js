@@ -49,12 +49,13 @@ router.get("/top", async (req, res) => {
 });
 
 
-// 🟨 Route 3 : Recherche d’artisans (barre de recherche)
-router.get("/search/:query", async (req, res) => {
+// 🟨 Route 3 : Recherche d’artisans par nom OU par catégorie
+router.get("/search", async (req, res) => {
   try {
-    const query = req.params.query.toLowerCase();
+    const query = req.query.q ? req.query.q.toLowerCase() : "";
+    if (!query) return res.json([]);
+
     const artisans = await Artisan.findAll({
-      where: {},
       include: {
         model: Specialite,
         include: {
@@ -63,8 +64,12 @@ router.get("/search/:query", async (req, res) => {
       },
     });
 
-    const results = artisans.filter((a) =>
-      a.nom_artisan.toLowerCase().includes(query)
+    // 🔍 Filtrage : correspond au nom OU à la catégorie
+    const results = artisans.filter(
+      (a) =>
+        a.nom_artisan.toLowerCase().includes(query) ||
+        a.Specialite?.nom_specialite.toLowerCase().includes(query) ||
+        a.Specialite?.Categorie?.nom_categorie.toLowerCase().includes(query)
     );
 
     res.json(results);
@@ -73,6 +78,7 @@ router.get("/search/:query", async (req, res) => {
     res.status(500).json({ message: "Erreur serveur" });
   }
 });
+
 
 // 🟧 Route 4 : Récupérer un artisan spécifique (fiche)
 router.get("/:id", async (req, res) => {
