@@ -1,24 +1,25 @@
 // ============================================================================
-// Page : Accueil
-// Description : Page d’accueil principale du site "Trouve ton artisan !"
-// Composition :
-//   - Section 1 : "Comment trouver mon artisan ?" (composant Trouvetonartisan)
-//   - Section 2 : "Nos artisans du mois" (composant ArtisansDuMois)
+// Page : Accueil.jsx
+// Description : Page d’accueil principale du site Trouve ton artisan !
+// Contient les sections explicatives et le carrousel des artisans du mois.
 // ============================================================================
-
 import React from "react";
 import Trouvetonartisan from "../components/Trouvetonartisan";
 import ArtisansDuMois from "../components/ArtisansDuMois";
 
 function Accueil() {
   return (
-    <>
-      {/* Section de présentation du processus de recherche */}
+    <main
+      role="main"
+      aria-label="Page d'accueil du site Trouve ton artisan"
+      className="page-accueil"
+    >
+      {/* Section : étapes pour trouver un artisan */}
       <Trouvetonartisan />
 
-      {/* Carrousel dynamique des meilleurs artisans */}
+      {/* Section : artisans mis en avant */}
       <ArtisansDuMois />
-    </>
+    </main>
   );
 }
 

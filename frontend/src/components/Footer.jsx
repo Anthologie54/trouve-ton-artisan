@@ -9,7 +9,7 @@
 
 import React from "react";
 import "../styles/Footer.scss";
-
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="footer mt-5">
@@ -62,24 +62,12 @@ const Footer = () => {
       {/* ---------------------------------------------------------------------- */}
       <div className="footer-bottom py-2 text-center">
         <div className="container d-flex flex-wrap justify-content-center">
-          <a href="#" className="footer-link">
-            Mentions légales
-          </a>
-          <a href="#" className="footer-link">
-            Données personnelles
-          </a>
-          <a href="#" className="footer-link">
-            Accessibilité
-          </a>
-          <a href="#" className="footer-link">
-            Politique des cookies
-          </a>
-          <a href="#" className="footer-link">
-            Gestion des cookies
-          </a>
-          <a href="#" className="footer-link">
-            Contact
-          </a>
+          <Link to="/mentions-legales" className="footer-link">Mentions légales</Link>
+          <Link to="/donnees-personnelles" className="footer-link">Données personnelles</Link>
+          <Link to="/accessibilite" className="footer-link">Accessibilité</Link>
+          <Link to="/cookies" className="footer-link">Politique des cookies</Link>
+          <Link to="/gestion-cookies" className="footer-link">Gestion des cookies</Link>
+          <Link to="/contact" className="footer-link">Contact</Link>
         </div>
       </div>
     </footer>

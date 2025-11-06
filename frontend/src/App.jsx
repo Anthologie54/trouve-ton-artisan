@@ -6,6 +6,7 @@ import Accueil from "./pages/Accueil";
 import Artisans from "./pages/Artisans";
 import FicheArtisan from "./pages/FicheArtisan";
 import NotFound from "./pages/NotFound";
+import PageConstruction from "./pages/PageConstruction";
 
 function App() {
   return (
@@ -17,6 +18,12 @@ function App() {
         <Route path="/artisans" element={<Artisans />} /> {/* ✅ ici */}
         <Route path="/artisan/:id" element={<FicheArtisan />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/mentions-legales" element={<PageConstruction />} />
+        <Route path="/donnees-personnelles" element={<PageConstruction />} />
+        <Route path="/accessibilite" element={<PageConstruction />} />
+        <Route path="/cookies" element={<PageConstruction />} />
+        <Route path="/gestion-cookies" element={<PageConstruction />} />
+        <Route path="/contact" element={<PageConstruction />} />
       </Routes>
 
       <Footer />
