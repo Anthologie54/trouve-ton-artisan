@@ -1,16 +1,32 @@
+// ============================================================================
+// Composant : Trouvetonartisan
+// Description : Section pédagogique expliquant les 4 étapes pour trouver
+//               un artisan. Les étapes 1 à 3 sont interactives et reliées à l’API.
+// Fonctionnalités :
+//   1. Sélection d’une catégorie (chargée dynamiquement depuis la BDD).
+//   2. Sélection d’un artisan correspondant à la catégorie choisie.
+//   3. Redirection vers la fiche détaillée de l’artisan sélectionné.
+//   4. Étape informative sur le délai de réponse.
+// ============================================================================
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/Trouvetonartisan.scss";
 
 const Trouvetonartisan = () => {
-  const [categories, setCategories] = useState([]);
-  const [artisans, setArtisans] = useState([]);
-  const [selectedCategorie, setSelectedCategorie] = useState("");
-  const [selectedArtisan, setSelectedArtisan] = useState("");
+  // --------------------------------------------------------------------------
+  // États internes
+  // --------------------------------------------------------------------------
+  const [categories, setCategories] = useState([]);     // Liste des catégories (Bâtiment, etc.)
+  const [artisans, setArtisans] = useState([]);         // Liste complète des artisans
+  const [selectedCategorie, setSelectedCategorie] = useState(""); // Catégorie choisie
+  const [selectedArtisan, setSelectedArtisan] = useState("");     // Artisan sélectionné
   const navigate = useNavigate();
 
-  // 🔹 Charger catégories + artisans
+  // --------------------------------------------------------------------------
+  // Chargement initial : catégories et artisans
+  // --------------------------------------------------------------------------
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,14 +41,18 @@ const Trouvetonartisan = () => {
     fetchData();
   }, []);
 
-  // 🔹 Filtrage des artisans selon la catégorie sélectionnée
+  // --------------------------------------------------------------------------
+  // Filtrage des artisans selon la catégorie sélectionnée
+  // --------------------------------------------------------------------------
   const artisansFiltres = selectedCategorie
     ? artisans.filter(
-      (a) => a.Specialite?.Categorie?.nom_categorie === selectedCategorie
-    )
+        (a) => a.Specialite?.Categorie?.nom_categorie === selectedCategorie
+      )
     : [];
 
-  // 🔹 Étape 3 : redirection vers la fiche artisan
+  // --------------------------------------------------------------------------
+  // Étape 3 : redirection vers la fiche artisan sélectionné
+  // --------------------------------------------------------------------------
   const handleContactClick = () => {
     if (selectedArtisan) {
       const artisan = artisans.find(
@@ -42,6 +62,9 @@ const Trouvetonartisan = () => {
     }
   };
 
+  // --------------------------------------------------------------------------
+  // Rendu JSX
+  // --------------------------------------------------------------------------
   return (
     <section className="how-to py-5">
       <div className="container container-section-un text-center">
@@ -52,16 +75,17 @@ const Trouvetonartisan = () => {
         </div>
 
         <div className="row justify-content-center g-4">
-          {/* Étape 1 */}
+          {/* ------------------------------------------------------------------ */}
+          {/* ÉTAPE 1 — Choix de la catégorie                                    */}
+          {/* ------------------------------------------------------------------ */}
           <div className="col-lg-3 d-flex justify-content-center position-relative">
             <div className="card step-card">
               <div className="card-body">
                 <h5 className="card-title">Première étape</h5>
-                <p className="card-text">
-                  Je choisis la catégorie d’artisan recherché
-                </p>
+                <p className="card-text">Je choisis la catégorie d’artisan recherché</p>
                 <i className="bi bi-arrow-down arrow-down text-primary"></i>
 
+                {/* Sélecteur dynamique de catégories */}
                 <select
                   className="form-select rounded-pill mt-2"
                   value={selectedCategorie}
@@ -79,7 +103,9 @@ const Trouvetonartisan = () => {
             <i className="bi bi-arrow-right arrow-between"></i>
           </div>
 
-          {/* Étape 2 */}
+          {/* ------------------------------------------------------------------ */}
+          {/* ÉTAPE 2 — Choix de l’artisan                                        */}
+          {/* ------------------------------------------------------------------ */}
           <div className="col-lg-3 d-flex justify-content-center position-relative">
             <div className="card step-card">
               <div className="card-body">
@@ -87,7 +113,7 @@ const Trouvetonartisan = () => {
                 <p className="card-text">Je sélectionne mon artisan</p>
                 <i className="bi bi-arrow-down arrow-down text-primary"></i>
 
-                {/* 🔹 Affiche le métier sélectionné au-dessus du select */}
+                {/* Affiche le métier sélectionné au-dessus du sélecteur */}
                 {selectedArtisan && (
                   <div className="artisan-info-selected mb-2">
                     <strong>
@@ -100,7 +126,7 @@ const Trouvetonartisan = () => {
                   </div>
                 )}
 
-                {/* Sélecteur d’artisan (filtré par catégorie) */}
+                {/* Liste des artisans filtrés par catégorie */}
                 <select
                   className="form-select rounded-pill mt-2"
                   value={selectedArtisan}
@@ -120,14 +146,15 @@ const Trouvetonartisan = () => {
                         : `${a.Specialite?.nom_specialite || ""} — ${a.nom_artisan}`}
                     </option>
                   ))}
-
                 </select>
               </div>
             </div>
             <i className="bi bi-arrow-right arrow-between"></i>
           </div>
 
-          {/* Étape 3 */}
+          {/* ------------------------------------------------------------------ */}
+          {/* ÉTAPE 3 — Redirection vers la fiche artisan                         */}
+          {/* ------------------------------------------------------------------ */}
           <div className="col-lg-3 d-flex justify-content-center position-relative">
             <div className="card step-card">
               <div className="card-body">
@@ -137,6 +164,7 @@ const Trouvetonartisan = () => {
                 </p>
                 <i className="bi bi-arrow-down arrow-down text-primary fa-2x"></i>
 
+                {/* Bouton de redirection conditionnel */}
                 <button
                   onClick={handleContactClick}
                   disabled={!selectedArtisan}
@@ -150,7 +178,9 @@ const Trouvetonartisan = () => {
             <i className="bi bi-arrow-right arrow-between"></i>
           </div>
 
-          {/* Étape 4 */}
+          {/* ------------------------------------------------------------------ */}
+          {/* ÉTAPE 4 — Information finale                                       */}
+          {/* ------------------------------------------------------------------ */}
           <div className="col-lg-3 d-flex justify-content-center">
             <div className="card step-card">
               <div className="card-body">
