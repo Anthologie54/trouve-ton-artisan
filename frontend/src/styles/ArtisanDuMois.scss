@@ -5,10 +5,24 @@
 
   /* --------- TITRE SECTION --------- */
   h2 {
-    color: #00497c !important;
+    color: #00497c;
     font-weight: 700;
-    margin: 20px;
-    padding-left: 30px;
+    text-align: center;
+    font-size: 1.8rem;
+    position: relative;
+    margin: 25px !important;
+
+    /* Trait vert au-dessus du texte */
+    &::before {
+      content: "";
+      position: absolute;
+      transform: translateX(-50%);
+      width: 35px;
+      height: 5px;
+      top: -5px;
+      background-color: #82b864;
+      border-radius: 3px;
+    }
   }
 
   /* --------- CORRECTION BOOTSTRAP POUR DÉBORDEMENT --------- */
@@ -26,7 +40,6 @@
   /* --------- CARD PRINCIPALE --------- */
   .artisan-card {
     background-color: #f1f8fc;
-    border-radius: 14px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     padding: 1.5rem 2rem;
     position: relative;
@@ -45,7 +58,6 @@
   /* --------- IMAGE ARTISAN --------- */
   .artisan-img {
     position: relative;
-    border-radius: 12px;
     margin-top: -50px;
     margin-left: -190px;
     width: 100%;
@@ -61,17 +73,9 @@
   .text-col {
     display: flex;
     flex-direction: column;
-    align-items: center; // centre horizontalement le contenu
-    justify-content: center; // centre verticalement le tout
+    align-items: center; 
+    justify-content: center; 
     text-align: center;
-
-
-    h2 {
-      color: #0074c7 !important;
-      margin-bottom: 15px;
-      padding: 10px;
-      width: 100%;
-    }
 
     h3 {
       color: #0074c7;

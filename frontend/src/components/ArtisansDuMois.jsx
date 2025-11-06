@@ -30,8 +30,7 @@ const ArtisansDuMois = () => {
   return (
     <section className="artisans-mois py-5">
       <div className="container">
-        <div className="decor-line mb-2"></div>
-        <h2 className="fw-bold mb-4 text-start text-primary">
+        <h2 className="fw-bold mb-4 text-start">
           Nos artisans du mois
         </h2>
 
