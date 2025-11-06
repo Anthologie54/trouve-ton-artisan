@@ -1,2 +1,210 @@
-# 🧭 Trouve ton artisan
-Projet pour la région Auvergne-Rhône-Alpes — Réalisé par Alexandre Mechineau
+TROUVE TON ARTISAN — Projet complet
+
+Plateforme web de mise en relation entre particuliers et artisans de la région Auvergne-Rhône-Alpes.
+Ce projet comprend une API REST (backend) et une application web (frontend).
+
+1. Objectif du projet
+
+Ce projet vise à permettre aux particuliers de :
+ - Trouver facilement un artisan selon sa spécialité ou sa catégorie.
+ - Consulter la fiche complète d’un artisan (note, spécialité, localisation, à propos...).
+ - Le contacter directement via un formulaire.
+ - Bénéficier d’un site fluide, responsive et accessible (norme WCAG 2.1).
+
+Le projet a été développé pour répondre à une commande de la Région Auvergne-Rhône-Alpes.
+
+2. Technologies utilisées
+
+Frontend :	ReactJS, React Router, Bootstrap, Sass
+Backend :	Node.js, Express, Sequelize
+Base de données :	MySQL
+Autres outils :	Git/GitHub, dotenv, CORS, Axios
+
+3. Architecture du projet
+
+trouve-ton-artisan/
+│
+├── backend/
+│   ├── db.js
+│   ├── server.js
+│   ├── .env
+│   ├── models/
+│   │   ├── Artisan.js
+│   │   ├── Categorie.js
+│   │   └── Specialite.js
+│   ├── routes/
+│   │   ├── artisans.js
+│   │   ├── categories.js
+│   │   └── specialites.js
+│   └── package.json
+│
+├── frontend/
+│   ├── public/
+│   │   ├── images/
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Header.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── Trouvetonartisan.jsx
+│   │   │   ├── ArtisansDuMois.jsx
+│   │   └── pages/
+│   │       ├── Accueil.jsx
+│   │       ├── Artisans.jsx
+│   │       ├── FicheArtisan.jsx
+│   │       ├── NotFound.jsx
+│   │       ├── Construction.jsx
+│   │   ├── styles/
+│   │   ├── App.jsx
+│   │   ├── index.js
+│   └── package.json
+│
+└── README.md
+
+4. Installation du projet
+
+ * Prérequis
+
+ - Node.js version 18 ou supérieure
+ - MySQL installé localement
+ - npm 
+
+ * Installation du backend
+
+Se placer dans le dossier backend :
+
+- cd backend
+
+Installer les dépendances :
+
+- npm install
+
+
+Créer le fichier .env :
+
+DB_NAME=trouve_ton_artisan
+DB_USER=root
+DB_PASSWORD=motdepasse
+DB_HOST=localhost
+DB_PORT=3306
+DB_DIALECT=mysql
+ALLOWED_ORIGIN=http://localhost:3000
+PORT=3001
+
+
+Lancer le serveur :
+
+- npm start
+
+
+Le backend est disponible à l’adresse :
+http://localhost:3001
+
+* Installation du frontend
+
+Se placer dans le dossier frontend :
+
+- cd frontend
+
+
+Installer les dépendances :
+
+- npm install
+
+
+Lancer l’application :
+
+- npm start
+
+
+Le frontend est disponible à l’adresse :
+http://localhost:3000
+
+5. Fonctionnalités principales
+
+* Frontend (ReactJS)
+
+- Header : logo, menu dynamique alimenté par la base, barre de recherche fonctionnelle.
+
+Page d’accueil :
+
+- Section “Comment trouver mon artisan ?” avec étapes interactives.
+- Carrousel des “Artisans du mois”.
+
+Page Artisans :
+
+- Liste dynamique filtrée par catégorie et par recherche.
+- Fiches artisans affichées sous forme de cartes.
+
+Page Fiche Artisan :
+
+- Informations détaillées + formulaire de contact.
+
+Page NotFound :
+
+- Message d’erreur clair avec redirection vers l’accueil ou les artisans.
+
+Pages légales :
+
+- “Page en construction” avec header et footer identiques aux autres pages.
+
+Footer :
+
+- Liens légaux, adresse, et coordonnées de la région.
+
+* Backend (API REST Express)
+
+Méthode	    Endpoint	         Description
+GET	     /api/categories	     Liste toutes les catégories
+GET	     /api/specialites	     Liste toutes les spécialités
+GET	     /api/artisans	         Récupère tous les artisans (avec spécialité et catégorie)
+GET	     /api/artisans/top	     Renvoie les artisans du mois
+GET	     /api/artisans/search?q= Recherche par nom, spécialité ou catégorie
+GET	     /api/artisans/:id	     Récupère la fiche d’un artisan spécifique
+
+6. Structure de la base de données
+
+Categorie (id_categorie, nom_categorie)
+  └── Specialite (id_specialite, nom_specialite, id_categorie)
+        └── Artisan (id_artisan, nom_artisan, note, localisation, a_propos, email, site_web, id_specialite, image, top)
+
+* Relations
+
+- Une catégorie possède plusieurs spécialités
+- Une spécialité possède plusieurs artisans
+- Un artisan appartient à une spécialité
+
+7. Accessibilité et design
+
+- Site conçu mobile-first avec Bootstrap et Sass.
+- Respect des normes WCAG 2.1 : contraste, lisibilité, focus visible, textes alternatifs, structure sémantique.
+- Palette de couleurs cohérente avec la charte graphique de la Région Auvergne-Rhône-Alpes.
+- Police : Graphik (utilisée sur tous les supports).
+
+8. Sécurité et bonnes pratiques
+
+- Gestion des variables sensibles via .env.
+- Middleware CORS configuré pour limiter les origines autorisées.
+- Requêtes validées et protégées côté frontend.
+- Aucune donnée critique exposée dans le code.
+- Architecture modulaire (routes / modèles / contrôleurs séparés).
+
+9. Tests et validation
+
+- Tests unitaires manuels effectués avec Postman et Thunder Client.
+- Validation W3C du HTML / CSS conforme.
+- Connexion MySQL testée avec sequelize.authenticate().
+- Comportement mobile vérifié avec les outils Chrome DevTools.
+
+10. Déploiement
+
+* Backend :
+
+- Hébergeable sur un service Node compatible (Railway, Render, etc.).
+- Nécessite un accès MySQL distant ou hébergé (PlanetScale, Clever Cloud…).
+
+* Frontend :
+
+- Déployable via Vercel, Netlify ou tout hébergeur statique.
+- Le fichier .env du backend doit autoriser le domaine du frontend (ALLOWED_ORIGIN).
