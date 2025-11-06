@@ -1,3 +1,12 @@
+// ============================================================================
+// Composant : ArtisansDuMois
+// Description : Carrousel dynamique présentant les 3 artisans du mois
+// Fonctionnalités :
+//   - Récupération via l’API backend (route /api/artisans/top).
+//   - Affiche nom, spécialité, localisation et note (avec étoiles).
+//   - Navigation automatique Bootstrap avec intervalle de 8 secondes.
+// ============================================================================
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -6,7 +15,9 @@ import "../styles/ArtisanDuMois.scss";
 const ArtisansDuMois = () => {
   const [artisans, setArtisans] = useState([]);
 
-  // récupération des artisans depuis la BDD
+  // --------------------------------------------------------------------------
+  // Chargement des artisans "du mois"
+  // --------------------------------------------------------------------------
   useEffect(() => {
     axios
       .get("http://localhost:3001/api/artisans/top")
@@ -14,7 +25,9 @@ const ArtisansDuMois = () => {
       .catch((err) => console.error("Erreur chargement artisans :", err));
   }, []);
 
-  // activation du carrousel Bootstrap une fois les artisans chargés
+  // --------------------------------------------------------------------------
+  // Activation du carrousel Bootstrap (auto défilement)
+  // --------------------------------------------------------------------------
   useEffect(() => {
     const el = document.querySelector("#carouselArtisans");
     if (el && window.bootstrap) {
@@ -23,10 +36,13 @@ const ArtisansDuMois = () => {
         ride: "carousel",
         pause: "hover",
       });
-      carousel.cycle(); 
+      carousel.cycle();
     }
-  }, [artisans]); 
+  }, [artisans]);
 
+  // --------------------------------------------------------------------------
+  // Rendu JSX
+  // --------------------------------------------------------------------------
   return (
     <section className="artisans-mois py-5">
       <div className="container">
@@ -34,6 +50,7 @@ const ArtisansDuMois = () => {
           Nos artisans du mois
         </h2>
 
+        {/* Carrousel Bootstrap */}
         <div
           id="carouselArtisans"
           className="carousel slide"
@@ -49,7 +66,8 @@ const ArtisansDuMois = () => {
               >
                 <div className="artisan-card">
                   <div className="row align-items-center justify-content-center">
-                    {/* IMAGE ARTISAN */}
+                    
+                    {/* Image artisan */}
                     <div className="col-md-4 image-col text-center">
                       <img
                         src={art.image || "/images/artisan-placeholder.png"}
@@ -58,7 +76,7 @@ const ArtisansDuMois = () => {
                       />
                     </div>
 
-                    {/* INFOS ARTISAN */}
+                    {/* Informations artisan */}
                     <div className="col-md-6 text-col">
                       <h3>{art.nom_artisan}</h3>
                       <h4>{art.Specialite?.nom_specialite || "Métier inconnu"}</h4>
@@ -74,7 +92,7 @@ const ArtisansDuMois = () => {
                     </div>
                   </div>
 
-                  {/* NOTE */}
+                  {/* Note (affichée sous la carte) */}
                   <div className="rating">
                     <span className="stars">⭐⭐⭐⭐⭐</span>
                     <span className="note">{art.note} / 5</span>
@@ -84,17 +102,14 @@ const ArtisansDuMois = () => {
             ))}
           </div>
 
-          {/* Flèches de navigation (facultatives) */}
+          {/* Flèches de navigation */}
           <button
             className="carousel-control-prev"
             type="button"
             data-bs-target="#carouselArtisans"
             data-bs-slide="prev"
           >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
             <span className="visually-hidden">Précédent</span>
           </button>
 
@@ -104,10 +119,7 @@ const ArtisansDuMois = () => {
             data-bs-target="#carouselArtisans"
             data-bs-slide="next"
           >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
             <span className="visually-hidden">Suivant</span>
           </button>
         </div>
