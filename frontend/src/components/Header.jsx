@@ -6,46 +6,49 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/Header.scss";
 
-
 const Header = () => {
-  // Liste des catégories (Bâtiment, Services, etc.)
-  const [categories, setCategories] = useState([]);
-  // Texte saisi dans la barre de recherche
-  const [search, setSearch] = useState("");
-  // Résultats de recherche d'artisans
-  const [results, setResults] = useState([]);
-  // État d'ouverture du menu burger mobile
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Référence pour détecter les clics en dehors du menu mobile
+  // --- États globaux ---
+  const [categories, setCategories] = useState([]); // Liste des catégories dynamiques
+  const [search, setSearch] = useState(""); // Texte dans la barre de recherche
+  const [results, setResults] = useState([]); // Résultats de la recherche
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Menu mobile ouvert ?
   const menuRef = useRef(null);
-
   const navigate = useNavigate();
 
-  // Chargement des catégories depuis l'API au montage du composant
+  // ======================================================
+  // 🟦 1️⃣ Chargement des catégories depuis l'API
+  // ======================================================
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/categories`)
-      .then((res) => setCategories(res.data))
-      .catch((err) => console.error("Erreur catégories :", err));
+    const fetchCategories = async () => {
+      try {
+        console.log("🌍 API utilisée :", process.env.REACT_APP_API_URL);
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/categories`
+        );
+        setCategories(res.data);
+      } catch (error) {
+        console.error("Erreur lors du chargement des catégories :", error);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
-  // Recherche d'artisans à partir de la saisie dans la barre de recherche
+  // ======================================================
+  // 🟨 2️⃣ Recherche dynamique d’artisans
+  // ======================================================
   useEffect(() => {
     const fetchSearch = async () => {
-      if (search.length > 1) {
+      if (search.trim().length > 1) {
         try {
           const res = await axios.get(
-            `${process.env.REACT_APP_API_URL}/api/artisans/search?q=${encodeURIComponent(
-              search
-            )}`
+            `${process.env.REACT_APP_API_URL}/api/artisans/search?q=${encodeURIComponent(search)}`
           );
           setResults(res.data);
-        } catch (err) {
-          console.error("Erreur de recherche :", err);
+        } catch (error) {
+          console.error("Erreur de recherche :", error);
         }
       } else {
-        // Si moins de 2 caractères, on vide la liste de résultats
         setResults([]);
       }
     };
@@ -53,8 +56,9 @@ const Header = () => {
     fetchSearch();
   }, [search]);
 
-  // Soumission du formulaire de recherche
-  // Si des résultats existent, on redirige vers la fiche du premier artisan
+  // ======================================================
+  // 🟧 3️⃣ Soumission du formulaire de recherche
+  // ======================================================
   const handleSubmit = (e) => {
     e.preventDefault();
     if (results.length > 0) {
@@ -64,25 +68,31 @@ const Header = () => {
     }
   };
 
-  // Fermeture du menu mobile en cliquant en dehors du bloc
+  // ======================================================
+  // 🟥 4️⃣ Fermeture du menu mobile en cliquant à l’extérieur
+  // ======================================================
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Navigation vers une fiche artisan depuis un résultat de recherche
+  // ======================================================
+  // 🟩 5️⃣ Sélection d’un artisan depuis les résultats
+  // ======================================================
   const handleResultSelect = (artisanId) => {
     navigate(`/artisan/${artisanId}`);
     setResults([]);
     setSearch("");
   };
 
+  // ======================================================
+  // 🧩 Rendu principal
+  // ======================================================
   return (
     <nav
       className="navbar navbar-expand-lg navbar-light custom-navbar"
@@ -90,7 +100,7 @@ const Header = () => {
       aria-label="Navigation principale"
     >
       <div className="container header-row">
-        {/* Bouton menu burger (visible sur mobile seulement via CSS) */}
+        {/* === Bouton burger (mobile) === */}
         <button
           className={`navbar-toggler ${isMenuOpen ? "active" : ""}`}
           type="button"
@@ -106,12 +116,16 @@ const Header = () => {
           <span className="navbar-toggler-icon" aria-hidden="true"></span>
         </button>
 
-        {/* Logo avec lien vers la page d'accueil */}
+        {/* === Logo principal === */}
         <Link to="/" className="navbar-brand logo-wrapper">
-          <img src="/images/logo.png" alt="Trouve ton artisan" className="logo-img" />
+          <img
+            src="/images/logo.png"
+            alt="Trouve ton artisan"
+            className="logo-img"
+          />
         </Link>
 
-        {/* Menu principal desktop (centré) */}
+        {/* === Menu principal (desktop) === */}
         <div className="collapse navbar-collapse justify-content-center d-none d-lg-block">
           <ul className="navbar-nav">
             {categories.map((cat) => (
@@ -134,7 +148,7 @@ const Header = () => {
           </ul>
         </div>
 
-        {/* Bloc de droite : barre de recherche */}
+        {/* === Barre de recherche (droite) === */}
         <div className="right-slot">
           <form
             className="d-flex search-bar position-relative"
@@ -154,7 +168,7 @@ const Header = () => {
               <i className="bi bi-search" aria-hidden="true"></i>
             </button>
 
-            {/* Liste des résultats de recherche en direct */}
+            {/* === Résultats de recherche === */}
             {results.length > 0 && (
               <ul
                 className="search-results"
@@ -165,7 +179,6 @@ const Header = () => {
                   <li
                     key={art.id_artisan}
                     role="option"
-                    aria-selected='true'
                     tabIndex={0}
                     onClick={() => handleResultSelect(art.id_artisan)}
                     onKeyDown={(e) => {
@@ -182,7 +195,7 @@ const Header = () => {
           </form>
         </div>
 
-        {/* Menu mobile déroulant sous le burger */}
+        {/* === Menu mobile déroulant === */}
         {isMenuOpen && (
           <div
             id="mobileMenu"
@@ -202,7 +215,6 @@ const Header = () => {
                   to="/"
                   onClick={() => setIsMenuOpen(false)}
                   className="overlay-link"
-                  role="menuitem"
                 >
                   Accueil
                 </Link>
@@ -215,7 +227,6 @@ const Header = () => {
                     )}`}
                     onClick={() => setIsMenuOpen(false)}
                     className="overlay-link"
-                    role="menuitem"
                   >
                     {cat.nom_categorie}
                   </Link>
@@ -226,7 +237,6 @@ const Header = () => {
                   to="/artisans"
                   onClick={() => setIsMenuOpen(false)}
                   className="overlay-link"
-                  role="menuitem"
                 >
                   Artisan
                 </Link>
