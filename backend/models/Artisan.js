@@ -7,7 +7,7 @@
  */
 
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db");
+const sequelize = require("../db");
 const Specialite = require("./Specialite");
 
 // ============================================================================

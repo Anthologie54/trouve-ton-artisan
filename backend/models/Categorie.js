@@ -6,7 +6,7 @@
  */
 
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db"); // Import de la connexion Sequelize
+const sequelize = require("../db"); // Import de la connexion Sequelize
 
 // ============================================================================
 // DÉFINITION DU MODÈLE "Categorie"
