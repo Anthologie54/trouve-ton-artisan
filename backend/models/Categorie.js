@@ -1,19 +1,36 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../db');
+/**
+ * ============================================================================
+ * FICHIER : models/Categorie.js
+ * DESCRIPTION : Modèle Sequelize représentant la table "categorie"
+ * ============================================================================
+ */
 
-const Categorie = sequelize.define('Categorie', {
-  id_categorie: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database"); // Import de la connexion Sequelize
+
+// ============================================================================
+// DÉFINITION DU MODÈLE "Categorie"
+// ============================================================================
+const Categorie = sequelize.define(
+  "Categorie",
+  {
+    id_categorie: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    nom_categorie: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
   },
-  nom_categorie: {
-    type: DataTypes.STRING(100),
-    allowNull: false
+  {
+    tableName: "categorie", // Nom exact de la table MySQL
+    timestamps: false, // Pas de colonnes createdAt / updatedAt
   }
-}, {
-  tableName: 'categorie',
-  timestamps: false
-});
+);
 
+// ============================================================================
+// EXPORT DU MODÈLE
+// ============================================================================
 module.exports = Categorie;

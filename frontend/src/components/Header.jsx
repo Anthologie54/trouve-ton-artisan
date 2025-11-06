@@ -1,17 +1,27 @@
+// Header.jsx
+// Composant d'en-tête principal : logo, menu de navigation, recherche d'artisans.
+
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/Header.scss";
 
 const Header = () => {
+  // Liste des catégories (Bâtiment, Services, etc.)
   const [categories, setCategories] = useState([]);
+  // Texte saisi dans la barre de recherche
   const [search, setSearch] = useState("");
+  // Résultats de recherche d'artisans
   const [results, setResults] = useState([]);
+  // État d'ouverture du menu burger mobile
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Référence pour détecter les clics en dehors du menu mobile
   const menuRef = useRef(null);
+
   const navigate = useNavigate();
 
-  // Charger les catégories (Bâtiment, etc.)
+  // Chargement des catégories depuis l'API au montage du composant
   useEffect(() => {
     axios
       .get("http://localhost:3001/api/categories")
@@ -19,26 +29,31 @@ const Header = () => {
       .catch((err) => console.error("Erreur catégories :", err));
   }, []);
 
-  // Recherche d’artisans
+  // Recherche d'artisans à partir de la saisie dans la barre de recherche
   useEffect(() => {
     const fetchSearch = async () => {
       if (search.length > 1) {
         try {
           const res = await axios.get(
-            `http://localhost:3001/api/artisans/search?q=${search}`
+            `http://localhost:3001/api/artisans/search?q=${encodeURIComponent(
+              search
+            )}`
           );
           setResults(res.data);
         } catch (err) {
           console.error("Erreur de recherche :", err);
         }
       } else {
+        // Si moins de 2 caractères, on vide la liste de résultats
         setResults([]);
       }
     };
+
     fetchSearch();
   }, [search]);
 
-  // Lorsqu’on valide ou clique sur un résultat
+  // Soumission du formulaire de recherche
+  // Si des résultats existent, on redirige vers la fiche du premier artisan
   const handleSubmit = (e) => {
     e.preventDefault();
     if (results.length > 0) {
@@ -48,78 +63,113 @@ const Header = () => {
     }
   };
 
-  // Fermer le menu si clic à l’extérieur
+  // Fermeture du menu mobile en cliquant en dehors du bloc
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  return (
-    <nav className="navbar navbar-expand-lg navbar-light custom-navbar">
-      <div className="container header-row">
+  // Navigation vers une fiche artisan depuis un résultat de recherche
+  const handleResultSelect = (artisanId) => {
+    navigate(`/artisan/${artisanId}`);
+    setResults([]);
+    setSearch("");
+  };
 
-        {/* 🍔 Bouton menu burger */}
+  return (
+    <nav
+      className="navbar navbar-expand-lg navbar-light custom-navbar"
+      role="navigation"
+      aria-label="Navigation principale"
+    >
+      <div className="container header-row">
+        {/* Bouton menu burger (visible sur mobile seulement via CSS) */}
         <button
           className={`navbar-toggler ${isMenuOpen ? "active" : ""}`}
           type="button"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-controls="mobileMenu"
+          aria-expanded={isMenuOpen}
+          aria-label={
+            isMenuOpen
+              ? "Fermer le menu de navigation"
+              : "Ouvrir le menu de navigation"
+          }
+          onClick={() => setIsMenuOpen((prev) => !prev)}
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" aria-hidden="true"></span>
         </button>
 
-        {/* 🔵 Logo */}
+        {/* Logo avec lien vers la page d'accueil */}
         <Link to="/" className="navbar-brand logo-wrapper">
-          <img src="/images/logo.png" alt="Logo" className="logo-img" />
+          <img src="/images/logo.png" alt="Trouve ton artisan" className="logo-img" />
         </Link>
 
-        {/* 🌐 Menu principal desktop */}
+        {/* Menu principal desktop (centré) */}
         <div className="collapse navbar-collapse justify-content-center d-none d-lg-block">
           <ul className="navbar-nav">
             {categories.map((cat) => (
               <li key={cat.id_categorie} className="nav-item">
                 <Link
                   className="nav-link"
-                  to={`/artisans?categorie=${encodeURIComponent(cat.nom_categorie)}`}
+                  to={`/artisans?categorie=${encodeURIComponent(
+                    cat.nom_categorie
+                  )}`}
                 >
                   {cat.nom_categorie}
                 </Link>
               </li>
             ))}
             <li className="nav-item">
-              <Link className="nav-link" to="/artisans">Artisan</Link>
+              <Link className="nav-link" to="/artisans">
+                Artisan
+              </Link>
             </li>
           </ul>
         </div>
 
-        {/* 🔍 Barre de recherche à droite */}
+        {/* Bloc de droite : barre de recherche */}
         <div className="right-slot">
-          <form className="d-flex search-bar position-relative" onSubmit={handleSubmit}>
+          <form
+            className="d-flex search-bar position-relative"
+            onSubmit={handleSubmit}
+            role="search"
+            aria-label="Recherche d'artisan"
+          >
             <input
               className="form-control"
               type="search"
               placeholder="Rechercher un artisan..."
+              aria-label="Rechercher un artisan par nom"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
             <button className="btn" type="submit">
-              <i className="bi bi-search"></i>
+              <i className="bi bi-search" aria-hidden="true"></i>
             </button>
 
-            {/* Résultats de recherche */}
+            {/* Liste des résultats de recherche en direct */}
             {results.length > 0 && (
-              <ul className="search-results">
+              <ul
+                className="search-results"
+                role="listbox"
+                aria-label="Résultats de recherche"
+              >
                 {results.map((art) => (
                   <li
                     key={art.id_artisan}
-                    onClick={() => {
-                      navigate(`/artisan/${art.id_artisan}`);
-                      setResults([]);
-                      setSearch("");
+                    role="option"
+                    tabIndex={0}
+                    onClick={() => handleResultSelect(art.id_artisan)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        handleResultSelect(art.id_artisan);
+                      }
                     }}
                   >
                     {art.nom_artisan}
@@ -130,27 +180,55 @@ const Header = () => {
           </form>
         </div>
 
-        {/* 📱 Petit menu déroulant sous le burger */}
+        {/* Menu mobile déroulant sous le burger */}
         {isMenuOpen && (
-          <div className="mobile-overlay-mini" ref={menuRef}>
-            <img src="/images/logo.png" alt="Logo" className="overlay-logo mb-2" />
+          <div
+            id="mobileMenu"
+            className="mobile-overlay-mini"
+            ref={menuRef}
+            role="menu"
+            aria-label="Menu principal mobile"
+          >
+            <img
+              src="/images/logo.png"
+              alt="Trouve ton artisan"
+              className="overlay-logo mb-2"
+            />
             <ul className="list-unstyled text-center mb-0">
               <li>
-                <Link to="/" onClick={() => setIsMenuOpen(false)} className="overlay-link">
-                  Nos artisans
+                <Link
+                  to="/"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="overlay-link"
+                  role="menuitem"
+                >
+                  Accueil
                 </Link>
               </li>
               {categories.map((cat) => (
                 <li key={cat.id_categorie}>
                   <Link
-                    to={`/artisans?categorie=${encodeURIComponent(cat.nom_categorie)}`}
+                    to={`/artisans?categorie=${encodeURIComponent(
+                      cat.nom_categorie
+                    )}`}
                     onClick={() => setIsMenuOpen(false)}
                     className="overlay-link"
+                    role="menuitem"
                   >
                     {cat.nom_categorie}
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  to="/artisans"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="overlay-link"
+                  role="menuitem"
+                >
+                  Artisan
+                </Link>
+              </li>
             </ul>
           </div>
         )}

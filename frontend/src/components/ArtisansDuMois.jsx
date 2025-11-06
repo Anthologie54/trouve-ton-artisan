@@ -1,3 +1,7 @@
+// ============================================================================
+// Composant : ArtisansDuMois
+// Description : Carrousel des 3 artisans du mois, récupérés via l’API backend.
+// ============================================================================
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -6,7 +10,7 @@ import "../styles/ArtisanDuMois.scss";
 const ArtisansDuMois = () => {
   const [artisans, setArtisans] = useState([]);
 
-  // récupération des artisans depuis la BDD
+  // Chargement des artisans du mois depuis l'API
   useEffect(() => {
     axios
       .get("http://localhost:3001/api/artisans/top")
@@ -14,7 +18,7 @@ const ArtisansDuMois = () => {
       .catch((err) => console.error("Erreur chargement artisans :", err));
   }, []);
 
-  // activation du carrousel Bootstrap une fois les artisans chargés
+  // Activation du carrousel Bootstrap une fois les données chargées
   useEffect(() => {
     const el = document.querySelector("#carouselArtisans");
     if (el && window.bootstrap) {
@@ -23,14 +27,18 @@ const ArtisansDuMois = () => {
         ride: "carousel",
         pause: "hover",
       });
-      carousel.cycle(); 
+      carousel.cycle();
     }
-  }, [artisans]); 
+  }, [artisans]);
 
   return (
-    <section className="artisans-mois py-5">
+    <section
+      className="artisans-mois py-5"
+      aria-labelledby="section-artisans-mois"
+      role="region"
+    >
       <div className="container">
-        <h2 className="fw-bold mb-4 text-start">
+        <h2 id="section-artisans-mois" className="fw-bold mb-4 text-start">
           Nos artisans du mois
         </h2>
 
@@ -38,8 +46,7 @@ const ArtisansDuMois = () => {
           id="carouselArtisans"
           className="carousel slide"
           data-bs-ride="carousel"
-          data-bs-interval="8000"
-          data-bs-pause="hover"
+          aria-label="Carrousel des artisans du mois"
         >
           <div className="carousel-inner">
             {artisans.map((art, index) => (
@@ -53,7 +60,7 @@ const ArtisansDuMois = () => {
                     <div className="col-md-4 image-col text-center">
                       <img
                         src={art.image || "/images/artisan-placeholder.png"}
-                        alt={art.nom_artisan}
+                        alt={`Portrait de ${art.nom_artisan}`}
                         className="artisan-img"
                       />
                     </div>
@@ -64,7 +71,6 @@ const ArtisansDuMois = () => {
                       <h4>{art.Specialite?.nom_specialite || "Métier inconnu"}</h4>
                       <h5>{art.localisation}</h5>
 
-                      {/* Lien vers la fiche artisan */}
                       <Link
                         to={`/artisan/${art.id_artisan}`}
                         className="btn btn-primary rounded-pill"
@@ -74,28 +80,37 @@ const ArtisansDuMois = () => {
                     </div>
                   </div>
 
-                  {/* NOTE */}
-                  <div className="rating">
-                    <span className="stars">⭐⭐⭐⭐⭐</span>
-                    <span className="note">{art.note} / 5</span>
+                  {/* NOTE DYNAMIQUE AVEC ÉTOILES */}
+                  <div className="rating" aria-label={`Note ${art.note} sur 5`}>
+                    {[1, 2, 3, 4, 5].map((num) => (
+                      <i
+                        key={num}
+                        className={`bi bi-star${
+                          art.note >= num
+                            ? "-fill text-primary"
+                            : art.note >= num - 0.5
+                            ? "-half text-primary"
+                            : " text-secondary"
+                        }`}
+                        aria-hidden="true"
+                      ></i>
+                    ))}
+                    <span className="note ms-2">{art.note} / 5</span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Flèches de navigation (facultatives) */}
+          {/* Flèches de navigation accessibles */}
           <button
             className="carousel-control-prev"
             type="button"
             data-bs-target="#carouselArtisans"
             data-bs-slide="prev"
+            aria-label="Artisan précédent"
           >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Précédent</span>
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
           </button>
 
           <button
@@ -103,12 +118,9 @@ const ArtisansDuMois = () => {
             type="button"
             data-bs-target="#carouselArtisans"
             data-bs-slide="next"
+            aria-label="Artisan suivant"
           >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Suivant</span>
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
           </button>
         </div>
       </div>

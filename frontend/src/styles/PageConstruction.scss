@@ -1,0 +1,52 @@
+.construction-page {
+  background-color: #ffffff;
+  color: #00497c;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  .construction-image img {
+    max-width: 400px;
+    width: 100%;
+    margin: 20px auto;
+  }
+
+  h1 {
+    font-weight: 700;
+    color: #00497c;
+    position: relative;
+    margin-bottom: 1rem;
+
+    &::before {
+      content: "";
+      position: absolute;
+      transform: translateX(-50%);
+      width: 35px;
+      height: 5px;
+      top: -10px;
+      left: 50%;
+      background-color: #0074c7;
+      border-radius: 3px;
+    }
+  }
+
+  p {
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .construction-image img {
+      max-width: 250px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+    }
+  }
+}

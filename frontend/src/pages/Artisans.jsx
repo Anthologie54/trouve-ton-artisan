@@ -1,15 +1,26 @@
-
+// ============================================================================
+// Page : Artisans.jsx
+// Description : Page affichant la liste complète des artisans.
+// Fonctionnalités :
+//   - Filtrage par catégorie (liste déroulante dynamique)
+//   - Recherche par nom (champ de recherche dynamique)
+//   - Regroupement par spécialité (catégorie métier)
+//   - Accès direct à chaque fiche artisan
+// Technologies : React, Axios, Bootstrap, Sass
+// ============================================================================
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../styles/Artisan.scss";
 import { Link } from "react-router-dom";
+import "../styles/Artisan.scss";
 
 const Artisan = () => {
-  const [artisans, setArtisans] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategorie, setSelectedCategorie] = useState("");
-  const [search, setSearch] = useState("");
+  // === ÉTATS PRINCIPAUX ===
+  const [artisans, setArtisans] = useState([]); // Liste complète d’artisans
+  const [categories, setCategories] = useState([]); // Liste des catégories
+  const [selectedCategorie, setSelectedCategorie] = useState(""); // Filtre de catégorie
+  const [search, setSearch] = useState(""); // Texte de recherche
 
+  // === CHARGEMENT INITIAL DES DONNÉES ===
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,6 +36,8 @@ const Artisan = () => {
     fetchData();
   }, []);
 
+  // === FILTRAGE DES ARTISANS ===
+  // Vérifie si un artisan correspond à la catégorie et au texte saisi
   const filteredArtisans = artisans.filter((art) => {
     const matchCategorie = selectedCategorie
       ? art.Specialite?.Categorie?.nom_categorie === selectedCategorie
@@ -33,6 +46,8 @@ const Artisan = () => {
     return matchCategorie && matchNom;
   });
 
+  // === GROUPEMENT PAR SPÉCIALITÉ ===
+  // Ex : “Boulanger”, “Électricien”, “Boucher”...
   const artisansParSpecialite = filteredArtisans.reduce((acc, art) => {
     const specialite = art.Specialite?.nom_specialite || "Autres";
     if (!acc[specialite]) acc[specialite] = [];
@@ -41,13 +56,26 @@ const Artisan = () => {
   }, {});
 
   return (
-    <section className="artisan-page">
-      <h2 className="fw-bold">Rechercher mon artisan</h2>
+    <section
+      className="artisan-page"
+      aria-labelledby="section-recherche-artisan"
+      role="region"
+    >
+      {/* === TITRE PRINCIPAL === */}
+      <h2 id="section-recherche-artisan" className="fw-bold text-center">
+        Rechercher mon artisan
+      </h2>
 
-      <div className="search-section py-5">
+      {/* === BARRE DE RECHERCHE ET FILTRES === */}
+      <div className="search-section py-5" role="search" aria-label="Recherche d’artisans">
         <div className="container text-center">
           <div className="search-controls my-4">
+            {/* Sélecteur de catégorie */}
+            <label htmlFor="categorieSelect" className="visually-hidden">
+              Choisir une catégorie d’artisan
+            </label>
             <select
+              id="categorieSelect"
               className="form-select mb-3"
               value={selectedCategorie}
               onChange={(e) => setSelectedCategorie(e.target.value)}
@@ -60,16 +88,24 @@ const Artisan = () => {
               ))}
             </select>
 
-            <p className="ou">ou</p>
+            <p className="ou" aria-hidden="true">
+              ou
+            </p>
 
+            {/* Recherche par nom */}
             <div className="input-group search-bar">
-              <span className="input-group-text">
-                <i className="bi bi-search"></i>
+              <span className="input-group-text" id="search-icon">
+                <i className="bi bi-search" aria-hidden="true"></i>
               </span>
+              <label htmlFor="searchInput" className="visually-hidden">
+                Rechercher un artisan par nom
+              </label>
               <input
+                id="searchInput"
                 type="text"
                 className="form-control"
                 placeholder="Rechercher votre artisan"
+                aria-label="Saisissez le nom d’un artisan"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -78,31 +114,43 @@ const Artisan = () => {
         </div>
       </div>
 
+      {/* === LISTE DES ARTISANS FILTRÉS === */}
       <div className="artisan-list container">
         <div className="custome-Artisans">
-          <h2 className="fw-bold">Les Artisans</h2>
+          <h2 className="fw-bold text-center">Les Artisans</h2>
         </div>
 
+        {/* Boucle sur chaque groupe de spécialités */}
         {Object.entries(artisansParSpecialite).map(([specialite, arts]) => (
-          <div key={specialite} className="categorie-section my-4">
+          <div
+            key={specialite}
+            className="categorie-section my-4"
+            aria-label={`Artisans spécialisés en ${specialite}`}
+          >
+            {/* Titre de la spécialité */}
             <div className="categorie-title text-center text-white fw-bold py-2 px-4 rounded-pill">
               {specialite}
             </div>
 
+            {/* Liste des artisans de cette spécialité */}
             {arts.map((art) => (
-              <div key={art.id_artisan} className="artisan-card my-4">
+              <article
+                key={art.id_artisan}
+                className="artisan-card my-4"
+                aria-label={`Artisan ${art.nom_artisan}`}
+              >
                 <div className="row align-items-center justify-content-center">
                   
-                  {/* IMAGE + ÉTOILES */}
+                  {/* === IMAGE + ÉTOILES === */}
                   <div className="col-md-4 image-col text-center">
                     <img
                       src={art.image || "/images/artisan-placeholder.png"}
-                      alt={art.nom_artisan}
+                      alt={`Photo ou logo de ${art.nom_artisan}`}
                       className="artisan-img"
                     />
 
-                    {/*  Étoiles dynamiques */}
-                    <div className="rating text-center mt-3">
+                    {/* Note dynamique avec étoiles */}
+                    <div className="rating text-center mt-3" aria-label={`Note ${art.note} sur 5`}>
                       {[1, 2, 3, 4, 5].map((num) => (
                         <i
                           key={num}
@@ -113,6 +161,7 @@ const Artisan = () => {
                               ? "-half text-primary"
                               : " text-secondary"
                           }`}
+                          aria-hidden="true"
                         ></i>
                       ))}
                       <span className="note-value ms-2 fw-semibold">
@@ -121,10 +170,12 @@ const Artisan = () => {
                     </div>
                   </div>
 
-                  {/* TEXTE */}
+                  {/* === INFOS ARTISAN === */}
                   <div className="col-md-6 text-col text-center custom-texte">
-                    <h3>{art.nom_artisan}</h3>
-                    <h4>{art.Specialite?.nom_specialite || "Métier inconnu"}</h4>
+                    <h3 className="text-primary fw-bold">{art.nom_artisan}</h3>
+                    <h4 className="text-secondary">
+                      {art.Specialite?.nom_specialite || "Métier inconnu"}
+                    </h4>
                     <h5>{art.localisation}</h5>
 
                     <Link
@@ -135,10 +186,17 @@ const Artisan = () => {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         ))}
+
+        {/* Message si aucun résultat */}
+        {filteredArtisans.length === 0 && (
+          <p className="text-center text-muted my-5">
+            Aucun artisan trouvé pour cette recherche.
+          </p>
+        )}
       </div>
     </section>
   );
