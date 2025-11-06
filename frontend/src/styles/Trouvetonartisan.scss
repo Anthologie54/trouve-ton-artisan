@@ -1,26 +1,28 @@
-.container{
+.container {
   max-width: 1650px !important;
 }
-h1 {
-      color: #00497c;
-      font-weight: 700;
-      text-align: center;
-      font-size: 1.8rem;
-      position: relative;
-      margin: 25px !important;
 
-      /* Trait vert au-dessus du texte */
-      &::before {
-        content: "";
-        position: absolute;
-        transform: translateX(-50%);
-        width: 35px;
-        height: 5px;
-        top: -5px;
-        background-color: #00497c;
-        border-radius: 3px;
-      }
-    }
+h1 {
+  color: #00497c;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.8rem;
+  position: relative;
+  margin: 25px !important;
+
+  /* Trait bleu au-dessus du texte */
+  &::before {
+    content: "";
+    position: absolute;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 5px;
+    top: -5px;
+    background-color: #00497c;
+    border-radius: 3px;
+  }
+}
+
 /* === Section Étapes === */
 .how-to {
   background-color: #fff;
@@ -41,8 +43,36 @@ h1 {
   max-width: 270px;
   width: 95%;
   padding: 10px;
-}
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
+  select,
+  button {
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+    border-radius: 50px;
+    border: 2px solid #0074c7;
+    color: #fff;
+    background-color: #0074c7;
+    transition: all 0.2s ease;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .btn-primary {
+    background-color: #0074c7 !important;
+    color: white !important;
+    border: none;
+
+    &:hover,
+    &:focus {
+      background-color: #00497c !important;
+      color: #fff !important;
+    }
+  }
+}
 
 .step-card .card-body {
   min-height: 200px !important;
@@ -57,17 +87,15 @@ h1 {
 
 .card-text {
   color: #0074c7;
-}
-
-.btn-primary {
-  background-color: #0074c7 !important;
+  padding: 10px;
 }
 
 .arrow-down {
-  font-size: 1.7rem ;
-  padding-bottom: 10px ;
+  font-size: 1.7rem;
+  padding-bottom: 10px;
   text-shadow: 0 0 1px #0074c7, 0 0 1px #0074c7;
 }
+
 .arrow-between {
   position: absolute;
   top: 50%;
@@ -79,38 +107,108 @@ h1 {
   text-shadow: 0 0 1px #0074c7, 0 0 1px #0074c7;
 }
 
-.card-text {
-  padding: 10px;
-}
 .card-4 {
   padding-bottom: 40px;
 }
+
+.btn-primary {
+  background-color: #0074c7 !important;
+}
+
 .btn-primary:hover,
 .btn-primary:focus {
   background-color: #00497c !important;
   border-color: #00497c !important;
   color: #fff !important;
 }
+
+/* === RESPONSIVE MOBILE-FIRST === */
 @media (max-width: 992px) {
   .col-lg-3 {
     display: flex;
     justify-content: center;
   }
 
+  .how-to {
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
   .step-card {
     margin: 0 auto 1.5rem;
     width: 90%;
     max-width: 320px;
+    padding: 1.2rem;
+
+    .card-title {
+      font-size: 1.1rem;
+    }
+
+    .card-text {
+      font-size: 0.95rem;
+    }
+
+    select,
+    button {
+      width: 100%;
+      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+      border-radius: 50px;
+    }
   }
 
   .decor-line {
-    width: 30px;
-    height: 3px;
-    background-color: #0074c7;
-    margin-left: 140px;
+    margin: 0 auto 15px;
   }
 
   .arrow-between {
-      display: none;
+    display: none;
   }
+
+  .arrow-down {
+    font-size: 1.3rem;
+    margin: 0.3rem 0;
   }
+}
+
+/* === TABLETTES === */
+@media (min-width: 992px) and (max-width: 1200px) {
+  .step-card {
+    max-width: 280px;
+    .card-title {
+      font-size: 1.15rem;
+    }
+    .card-text {
+      font-size: 1rem;
+    }
+  }
+}
+/* === AFFICHAGE DU MÉTIER SÉLECTIONNÉ === */
+.artisan-info-selected {
+  background-color: #f1f8fc;
+  border: 1.5px solid #0074c7;
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin: 0 auto 10px;
+  max-width: 240px;
+  text-align: center;
+
+  strong {
+    display: block;
+    color: #00497c;
+    font-size: 1rem;
+  }
+
+  p {
+    color: #0074c7;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  @media (max-width: 992px) {
+    max-width: 90%;
+    strong {
+      font-size: 0.95rem;
+    }
+  }
+}
