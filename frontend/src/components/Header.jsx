@@ -119,7 +119,7 @@ const Header = () => {
         {/* === Logo principal === */}
         <Link to="/" className="navbar-brand logo-wrapper">
           <img
-            src="/images/logo.png"
+            src="/images/Logo.png"
             alt="Trouve ton artisan"
             className="logo-img"
           />
