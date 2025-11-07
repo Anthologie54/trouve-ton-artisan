@@ -201,10 +201,11 @@ Categorie (id_categorie, nom_categorie)
 
 * Backend :
 
-- Hébergeable sur un service Node compatible (Railway, Render, etc.).
-- Nécessite un accès MySQL distant ou hébergé (PlanetScale, Clever Cloud…).
+- Hébergeable sur un service Node compatible ( Render). : https://trouve-ton-artisan-9yrd.onrender.com
+
+- Nécessite un accès MySQL distant  (freesqldatabase.com). https://trouve-ton-artisan-vert.vercel.app
 
 * Frontend :
 
-- Déployable via Vercel, Netlify ou tout hébergeur statique.
+- Déployer via Vercel
 - Le fichier .env du backend doit autoriser le domaine du frontend (ALLOWED_ORIGIN).
