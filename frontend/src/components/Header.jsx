@@ -205,39 +205,25 @@ const Header = () => {
             aria-label="Menu principal mobile"
           >
             <img
-              src="/images/logo.png"
+              src="/images/Logo.png"
               alt="Trouve ton artisan"
               className="overlay-logo mb-2"
             />
             <ul className="list-unstyled text-center mb-0">
               <li>
-                <Link
-                  to="/"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="overlay-link"
-                >
+                <Link to="/" onClick={() => setIsMenuOpen(false)} className="overlay-link">
                   Accueil
                 </Link>
               </li>
               {categories.map((cat) => (
                 <li key={cat.id_categorie}>
-                  <Link
-                    to={`/artisans?categorie=${encodeURIComponent(
-                      cat.nom_categorie
-                    )}`}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="overlay-link"
-                  >
+                  <Link to={`/artisans?categorie=${encodeURIComponent(cat.nom_categorie)}`} onClick={() => setIsMenuOpen(false)} className="overlay-link">
                     {cat.nom_categorie}
                   </Link>
                 </li>
               ))}
               <li>
-                <Link
-                  to="/artisans"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="overlay-link"
-                >
+                <Link to="/artisans" onClick={() => setIsMenuOpen(false)} className="overlay-link">
                   Artisan
                 </Link>
               </li>

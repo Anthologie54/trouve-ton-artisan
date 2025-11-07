@@ -23,7 +23,7 @@ const Footer = () => {
           <div className="footer-logo text-center mb-3 mb-md-0">
             <div className="logo-circle">
               <img
-                src="/images/logo.png"
+                src="/images/Logo.png"
                 alt="Logo Trouve ton artisan"
                 className="footer-logo-img"
               />
