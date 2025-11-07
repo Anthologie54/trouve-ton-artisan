@@ -26,16 +26,17 @@ const allowedOrigins = [
   'https://trouve-ton-artisan.vercel.app'
 ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('CORS non autorisé pour cet origine : ' + origin));
-    }
-  },
-  credentials: true,
-}));
+//  CORS : autorise Vercel et localhost
+app.use(
+  cors({
+    origin: [
+      'https://trouve-ton-artisan-vert.vercel.app', // ton site Vercel
+      'http://localhost:3000',                      // pour le dev local
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 // ============================================================================
 // ASSOCIATIONS ENTRE LES MODÈLES
 // ============================================================================
